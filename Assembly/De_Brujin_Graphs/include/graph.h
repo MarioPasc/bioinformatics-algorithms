@@ -1,9 +1,9 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#include <unordered_map>
 #include <vector>
 #include <string>
+#include <unordered_map>
 
 struct Node {
     std::string kmer;
@@ -12,5 +12,6 @@ struct Node {
 
 std::unordered_map<std::string, Node*> buildGraph(const std::vector<std::string>& reads, int k);
 std::string findEulerianPath(std::unordered_map<std::string, Node*>& graph);
+void printGraph(const std::unordered_map<std::string, Node*>& graph);
 
 #endif

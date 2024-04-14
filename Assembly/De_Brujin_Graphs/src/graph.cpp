@@ -29,6 +29,18 @@ unordered_map<string, Node*> buildGraph(const vector<string>& reads, int k) {
     return graph;
 }
 
+void printGraph(const std::unordered_map<std::string, Node*>& graph) {
+    for (const auto& pair : graph) {
+        const Node* node = pair.second;
+        std::cout << "Nodo: " << node->kmer << std::endl;
+        std::cout << "Vecinos: ";
+        for (const Node* neighbor : node->neighbors) {
+            std::cout << neighbor->kmer << " ";
+        }
+        std::cout << std::endl << std::endl;
+    }
+}
+
 string findEulerianPath(unordered_map<string, Node*>& graph) {
     string path;
     unordered_map<Node*, int> inDegree, outDegree;
@@ -55,7 +67,7 @@ string findEulerianPath(unordered_map<string, Node*>& graph) {
     // Realizar el recorrido del camino de Euler
     Node* currentNode = startNode;
     while (outDegree[currentNode] > 0) {
-        path += currentNode->kmer[0];
+        path += currentNode->kmer[0]; // equivalente a (*currentNode).kmer[0]
         Node* nextNode = currentNode->neighbors.back();
         currentNode->neighbors.pop_back();
         outDegree[currentNode]--;
