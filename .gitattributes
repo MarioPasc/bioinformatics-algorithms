@@ -1,0 +1,12 @@
+# .gitattributes
+*.html linguist-vendored
+*.ts linguist-vendored
+CMakeLists.txt linguist-vendored
+*.cmake linguist-vendored
+
+# Asumiendo que también quieres incluir archivos de CMake generados automáticamente
+CMakeCache.txt linguist-vendored
+CMakeFiles/* linguist-vendored
+cmake_install.cmake linguist-vendored
+CMakeScripts/* linguist-vendored
+Makefile linguist-vendored
