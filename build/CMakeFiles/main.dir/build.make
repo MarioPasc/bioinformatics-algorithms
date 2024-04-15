@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/mariopasc/C++/bioinformatics-algorithms
+CMAKE_SOURCE_DIR = /home/mario/VSCode/Projects/bioinformatics-algorithms
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/mariopasc/C++/bioinformatics-algorithms/build
+CMAKE_BINARY_DIR = /home/mario/VSCode/Projects/bioinformatics-algorithms/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/main.dir/depend.make
@@ -72,44 +72,44 @@ include CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/main.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/main.cpp.o: ../main.cpp
 CMakeFiles/main.dir/main.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mariopasc/C++/bioinformatics-algorithms/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main.dir/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/main.cpp.o -MF CMakeFiles/main.dir/main.cpp.o.d -o CMakeFiles/main.dir/main.cpp.o -c /home/mariopasc/C++/bioinformatics-algorithms/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mario/VSCode/Projects/bioinformatics-algorithms/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main.dir/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/main.cpp.o -MF CMakeFiles/main.dir/main.cpp.o.d -o CMakeFiles/main.dir/main.cpp.o -c /home/mario/VSCode/Projects/bioinformatics-algorithms/main.cpp
 
 CMakeFiles/main.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mariopasc/C++/bioinformatics-algorithms/main.cpp > CMakeFiles/main.dir/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mario/VSCode/Projects/bioinformatics-algorithms/main.cpp > CMakeFiles/main.dir/main.cpp.i
 
 CMakeFiles/main.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mariopasc/C++/bioinformatics-algorithms/main.cpp -o CMakeFiles/main.dir/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mario/VSCode/Projects/bioinformatics-algorithms/main.cpp -o CMakeFiles/main.dir/main.cpp.s
 
 CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.o: ../Assembly/De_Brujin_Graphs/src/assembly.cpp
 CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mariopasc/C++/bioinformatics-algorithms/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.o -MF CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.o.d -o CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.o -c /home/mariopasc/C++/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/src/assembly.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mario/VSCode/Projects/bioinformatics-algorithms/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.o -MF CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.o.d -o CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.o -c /home/mario/VSCode/Projects/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/src/assembly.cpp
 
 CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mariopasc/C++/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/src/assembly.cpp > CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mario/VSCode/Projects/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/src/assembly.cpp > CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.i
 
 CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mariopasc/C++/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/src/assembly.cpp -o CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mario/VSCode/Projects/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/src/assembly.cpp -o CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.s
 
 CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.o: ../Assembly/De_Brujin_Graphs/src/graph.cpp
 CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mariopasc/C++/bioinformatics-algorithms/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.o -MF CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.o.d -o CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.o -c /home/mariopasc/C++/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/src/graph.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/mario/VSCode/Projects/bioinformatics-algorithms/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.o -MF CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.o.d -o CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.o -c /home/mario/VSCode/Projects/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/src/graph.cpp
 
 CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mariopasc/C++/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/src/graph.cpp > CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/mario/VSCode/Projects/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/src/graph.cpp > CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.i
 
 CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mariopasc/C++/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/src/graph.cpp -o CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/mario/VSCode/Projects/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/src/graph.cpp -o CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.s
 
 # Object files for target main
 main_OBJECTS = \
@@ -125,7 +125,7 @@ main: CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.o
 main: CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.o
 main: CMakeFiles/main.dir/build.make
 main: CMakeFiles/main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/mariopasc/C++/bioinformatics-algorithms/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/mario/VSCode/Projects/bioinformatics-algorithms/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable main"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -137,6 +137,6 @@ CMakeFiles/main.dir/clean:
 .PHONY : CMakeFiles/main.dir/clean
 
 CMakeFiles/main.dir/depend:
-	cd /home/mariopasc/C++/bioinformatics-algorithms/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/mariopasc/C++/bioinformatics-algorithms /home/mariopasc/C++/bioinformatics-algorithms /home/mariopasc/C++/bioinformatics-algorithms/build /home/mariopasc/C++/bioinformatics-algorithms/build /home/mariopasc/C++/bioinformatics-algorithms/build/CMakeFiles/main.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/mario/VSCode/Projects/bioinformatics-algorithms/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/mario/VSCode/Projects/bioinformatics-algorithms /home/mario/VSCode/Projects/bioinformatics-algorithms /home/mario/VSCode/Projects/bioinformatics-algorithms/build /home/mario/VSCode/Projects/bioinformatics-algorithms/build /home/mario/VSCode/Projects/bioinformatics-algorithms/build/CMakeFiles/main.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/main.dir/depend
 

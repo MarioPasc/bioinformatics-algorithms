@@ -5,7 +5,7 @@
 
 int main() {
     std::vector<std::string> reads = {"ATGCTAGCAC"};
-    int k = 4;
+    int k = 3;
 
     assembly(reads, k);
 
