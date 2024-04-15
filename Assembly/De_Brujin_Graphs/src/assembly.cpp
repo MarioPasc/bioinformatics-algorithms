@@ -10,5 +10,5 @@ void assembly(const vector<string>& reads, int k) {
 
     string eulerianPath = findEulerianPath(graph);
     cout << "Camino de Euler: " << eulerianPath << endl;
-    cout << "Alineación: " << eulerianPath.substr(0, k) << eulerianPath.substr(k) << endl;
+    //cout << "Alineación: " << eulerianPath.substr(0, k) << eulerianPath.substr(k) << endl;
 }
