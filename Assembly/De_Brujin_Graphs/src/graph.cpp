@@ -8,6 +8,7 @@ using namespace std;
 struct Node {
     string kmer;
     vector<Node*> neighbors;
+    bool passed = false;
 };
 
 unordered_map<string, Node*> buildGraph(const vector<string>& reads, int k) {
@@ -27,6 +28,7 @@ unordered_map<string, Node*> buildGraph(const vector<string>& reads, int k) {
             if (i > 0) {
                 string prev_kmer = read.substr(i - 1, k - 1);
                 // Add an edge from the previous k-mer to the current k-mer
+                // this is a pointer from the previous k-mer to the actual
                 graph[prev_kmer]->neighbors.push_back(graph[kmer]);
             }
         }
@@ -60,7 +62,7 @@ void printGraph(const std::unordered_map<std::string, Node*>& graph) {
     }
 }
 
-string findEulerianPath(unordered_map<string, Node*>& graph) {
+Node* findStartNode(unordered_map<string, Node*>& graph) {
     string path;
     unordered_map<Node*, int> inDegree, outDegree;
 
@@ -82,20 +84,27 @@ string findEulerianPath(unordered_map<string, Node*>& graph) {
             break;
         }
     }
+    return startNode;
+}
 
-    // Perform the Eulerian path traversal
-    Node* currentNode = startNode;
-    while (outDegree[currentNode] > 0) {
-        // Append the first character of the current node's k-mer to the path
-        path += currentNode->kmer[0];
-
-        // Move to the next node
-        Node* nextNode = currentNode->neighbors.back();
-        currentNode->neighbors.pop_back();
-        outDegree[currentNode]--;
-        currentNode = nextNode;
+void findEulerianPath(Node* startNode, Node* exitNode, std::vector<std::string>& path) {
+    // Check the start node as passed
+    startNode->passed = true;
+    // Base case: Actual node has no neighbours o
+    // Caso base: si el nodo actual no tiene vecinos o el único vecino es el nodo de salida
+    if (startNode->neighbors.empty() || (startNode->neighbors.size() == 1 && startNode->neighbors[0] == exitNode)) {
+        // Agregar el k-mer del nodo actual al camino de Euler
+        path.push_back(startNode->kmer);
+        return;
     }
-    path += currentNode->kmer;
 
-    return path;
+    // Recorrer los vecinos del nodo actual
+    for (Node* neighbor : startNode->neighbors) {
+        if (!neighbor->passed) {
+            findEulerianPath(neighbor, exitNode, path);
+        }
+    }
+
+    // Agregar el k-mer del nodo actual al camino de Euler
+    path.push_back(startNode->kmer);
 }
