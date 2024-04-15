@@ -1,3 +1,0 @@
-/home/mario/VSCode/Projects/bioinformatics-algorithms/build/CMakeFiles/main.dir
-/home/mario/VSCode/Projects/bioinformatics-algorithms/build/CMakeFiles/edit_cache.dir
-/home/mario/VSCode/Projects/bioinformatics-algorithms/build/CMakeFiles/rebuild_cache.dir
