@@ -2,6 +2,7 @@
 #include <unordered_map>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -49,7 +50,6 @@ std::unordered_map<string, int> getKmerFrequency(const std::string& sequence, in
     return kmerFrequency;
 }
 
-
 void printGraph(const std::unordered_map<std::string, Node*>& graph) {
     for (const auto& pair : graph) {
         const Node* node = pair.second;
@@ -62,49 +62,41 @@ void printGraph(const std::unordered_map<std::string, Node*>& graph) {
     }
 }
 
-Node* findStartNode(unordered_map<string, Node*>& graph) {
-    string path;
-    unordered_map<Node*, int> inDegree, outDegree;
-
-    // Calculate the in-degree and out-degree of each node
-    for (auto& pair : graph) {
-        Node* node = pair.second;
-        outDegree[node] = node->neighbors.size();
-        for (Node* neighbor : node->neighbors) {
-            inDegree[neighbor]++;
-        }
-    }
-
-    // Find the starting node (a node with out-degree greater than in-degree)
+Node* findStartingNode(const unordered_map<string, Node*>& graph) {
     Node* startNode = nullptr;
-    for (auto& pair : graph) {
-        Node* node = pair.second;
-        if (outDegree[node] > inDegree[node]) {
-            startNode = node;
-            break;
+    int maxDegree = 0;  // Track the maximum degree
+
+    for (const auto& pair : graph) {
+        int degree = pair.second->neighbors.size();
+        if (degree > maxDegree) {
+            maxDegree = degree;
+            startNode = pair.second;
         }
     }
     return startNode;
 }
 
-void findEulerianPath(Node* startNode, Node* exitNode, std::vector<std::string>& path) {
-    // Check the start node as passed
-    startNode->passed = true;
-    // Base case: Actual node has no neighbours o
-    // Caso base: si el nodo actual no tiene vecinos o el único vecino es el nodo de salida
-    if (startNode->neighbors.empty() || (startNode->neighbors.size() == 1 && startNode->neighbors[0] == exitNode)) {
-        // Agregar el k-mer del nodo actual al camino de Euler
-        path.push_back(startNode->kmer);
-        return;
+void Fleury(Node* start, Node* originalStart = nullptr) {
+    if (originalStart == nullptr) {
+        originalStart = start; // Establece el nodo de inicio original en la primera llamada
     }
 
-    // Recorrer los vecinos del nodo actual
-    for (Node* neighbor : startNode->neighbors) {
+    cout << start->kmer << endl; // Imprime el k-mer del nodo actual
+
+    // Marca el nodo actual como visitado
+    start->passed = true;
+
+    for (auto neighbor : start->neighbors) {
+        // Caso base: si el vecino es el nodo de inicio original o si no tiene vecinos
+        if (neighbor == originalStart || start->neighbors.empty()) {
+            cout << neighbor->kmer << endl; // Imprime el k-mer del nodo de inicio original o el último nodo
+            return; // Termina la recursión
+        }
+
         if (!neighbor->passed) {
-            findEulerianPath(neighbor, exitNode, path);
+            // Llama recursivamente a Fleury con el vecino como nuevo nodo de inicio
+            Fleury(neighbor, originalStart);
+            return; // Termina la recursión después de volver del llamado recursivo
         }
     }
-
-    // Agregar el k-mer del nodo actual al camino de Euler
-    path.push_back(startNode->kmer);
 }

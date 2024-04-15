@@ -12,8 +12,9 @@ struct Node {
 };
 
 std::unordered_map<std::string, Node*> buildGraph(const std::vector<std::string>& reads, int k);
-void printGraph(const std::unordered_map<std::string, Node*>& graph);
 std::unordered_map<std::string, int> getKmerFrequency(const std::string& sequence, int k);
-void findEulerianPath(Node* startNode, Node* exitNode, std::vector<std::string>& path);
-Node* findStartNode(std::unordered_map<std::string, Node*>& graph)
-#endif
+Node* findStartingNode(const std::unordered_map<std::string, Node*>& graph);
+void printGraph(const std::unordered_map<std::string, Node*>& graph);
+void Fleury(Node* start, Node* originalStart = nullptr); // Nueva declaración
+
+#endif // GRAPH_H

@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/g++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/mario/VSCode/Projects/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/include
+CXX_INCLUDES = -I/home/mariopasc/C++/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/include
 
-CXX_FLAGS = -g -std=gnu++14
+CXX_FLAGS = -std=gnu++14
 

@@ -1,24 +1,24 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <unordered_map>
-#include "assembly.h"
-#include "graph.h"
-using namespace std;
+#include "graph.h" // Asegúrate de que la ruta sea correcta
 
 int main() {
+    //std::vector<std::string> reads = {"ATG", "TGC", "GCA", "CAT", "ATA"};
     std::vector<std::string> reads = {"ATGCTAGCAC"};
-    int k = 3;
+    int k = 3; // Tamaño del k-mer
 
-    assembly(reads, k); 
+    std::unordered_map<std::string, Node*> graph = buildGraph(reads, k);
 
-    for (const string& read: reads) {
-        std::unordered_map<std::string, int> kmerFrequency = getKmerFrequency(read, k);
-        // Print the k-mers and their frequencies
-        for (const auto& pair : kmerFrequency) {
-            std::cout << "K-mer: " << pair.first << ", Frequency: " << pair.second << std::endl;
-        }
+    Node* startNode = findStartingNode(graph);
+    if (startNode == nullptr) {
+        std::cout << "No se encontró un nodo de inicio adecuado." << std::endl;
+        return 1; // Termina el programa si no se encuentra un nodo de inicio
+    } else {
+        std::cout << "Nodo de inicio: " << startNode->kmer << std::endl;
     }
+    std::cout << "Inicio del algoritmo de Fleury" << std::endl;
+    Fleury(startNode);
     return 0;
 }
 

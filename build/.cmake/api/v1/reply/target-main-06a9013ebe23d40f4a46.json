@@ -42,9 +42,6 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g"
-				},
-				{
 					"fragment" : "-std=gnu++14"
 				}
 			],
@@ -52,7 +49,7 @@
 			[
 				{
 					"backtrace" : 2,
-					"path" : "/home/mario/VSCode/Projects/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/include"
+					"path" : "/home/mariopasc/C++/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/include"
 				}
 			],
 			"language" : "CXX",
@@ -77,10 +74,6 @@
 	{
 		"commandFragments" : 
 		[
-			{
-				"fragment" : "-g",
-				"role" : "flags"
-			},
 			{
 				"fragment" : "",
 				"role" : "flags"

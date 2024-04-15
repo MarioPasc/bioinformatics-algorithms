@@ -1,1 +1,1 @@
-/usr/bin/g++ -g CMakeFiles/main.dir/main.cpp.o CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.o CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.o -o main 
+/usr/bin/g++ CMakeFiles/main.dir/main.cpp.o CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.o CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.o -o main 
