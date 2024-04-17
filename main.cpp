@@ -1,25 +1,46 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "graph.h" // Asegúrate de que la ruta sea correcta
+#include "graph.h" 
+
+void runTest(const std::vector<std::string>& reads, int k, const std::string& testName) {
+    std::cout << "Test: " << testName << std::endl;
+    
+    // Construir el grafo
+    std::unordered_map<std::string, Node*> graph = buildGraph(reads, k);
+
+    // Imprimir el grafo
+    std::cout << "Graph structure:" << std::endl;
+    printGraph(graph);
+
+    // Encontrar el circuito Euleriano si existe
+    std::vector<Node*> circuit = fleuryAlgorithm(graph);
+    
+    std::cout << "Eulerian Circuit:";
+    if (circuit.empty()) {
+        std::cout << " No Eulerian Circuit found.";
+    } else {
+        for (Node* node : circuit) {
+            std::cout << " " << node->kmer << " ->";
+        }
+    }
+    std::cout << " END" << std::endl << std::endl;
+
+    // Limpiar la memoria
+    for (auto& pair : graph) {
+        delete pair.second;
+    }
+}
 
 int main() {
-    //std::vector<std::string> reads = {"ATG", "TGC", "GCA", "CAT", "ATA"};
-    std::vector<std::string> reads = {"ATGCTAGCAC"};
-    int k = 3; // Tamaño del k-mer
+    std::vector<std::string> readsPerfectEulerian = {"AGT", "GTA", "TAG", "AGT"};
+    std::vector<std::string> readsNonEulerian = {"AGT", "GTC", "TCA", "CAT"};
+    std::vector<std::string> readsEulerianWithDeadEnds = {"AGT", "GTA", "TAG", "AGC", "GCT"};
+    int k = 3;
+    runTest(readsPerfectEulerian, k, "Perfect Eulerian Cycle");
+    runTest(readsNonEulerian, k, "No Eulerian Cycle");
+    runTest(readsEulerianWithDeadEnds, k, "Eulerian Cycle with Extras");
 
-    std::unordered_map<std::string, Node*> graph = buildGraph(reads, k);
-    printGraph(graph);
-    //Node* startNode = findStartingNode(graph);
-    Node* startNode = graph["AT"];
-    if (startNode == nullptr) {
-        std::cout << "No se encontró un nodo de inicio adecuado." << std::endl;
-        return 1; // Termina el programa si no se encuentra un nodo de inicio
-    } else {
-        std::cout << "Nodo de inicio: " << startNode->kmer << std::endl;
-    }
-    std::cout << "Inicio del algoritmo de Fleury" << std::endl;
-    Fleury(startNode, graph);
     return 0;
 }
 
