@@ -1,0 +1,3 @@
+[submodule "external/kseqpp"]
+	path = external/kseqpp
+	url = https://github.com/cartoonist/kseqpp

@@ -106,7 +106,29 @@ std::vector<Node*> fleuryAlgorithm(std::unordered_map<std::string, Node*>& graph
         path.push_back(current);
     }
     return path;
+}
 
+
+void getKmerFrequency(const std::vector<std::string>& reads, std::unordered_map<std::string, Node*>& graph) {
+    std::unordered_map<std::string, int> kmerFrequency;
+
+    for (const std::string& read : reads) {
+        // Calcular la longitud del k-mero basado en el primer nodo del grafo
+        // Asumiendo que todos los k-meros tienen la misma longitud
+        int k = graph.begin()->first.length();
+
+        // Iterar sobre cada k-mero en la lectura actual
+        for (int i = 0; i <= read.length() - k; ++i) {
+            std::string kmer = read.substr(i, k);
+
+            // Incrementar la frecuencia del k-mero en el mapa
+            kmerFrequency[kmer]++;
+        }
+    }
+
+    for (const auto& pair : kmerFrequency) {
+        std::cout << "K-mero: " << pair.first << ", Frecuencia: " << pair.second << std::endl;
+    }
 }
 
 

@@ -4,7 +4,9 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/Assembly/De_Brujin_Graphs/include"
+                "${workspaceFolder}/Assembly/De_Brujin_Graphs/include",
+                "${workspaceFolder}/external/kseqpp",
+                "${workspaceFolder}/external/kseqpp/include"
             ],
             "defines": [],
             "cStandard": "c17",

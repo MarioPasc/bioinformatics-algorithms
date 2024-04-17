@@ -27,16 +27,14 @@ struct Node {
     ~Node();
 };
 
-// Función para añadir una arista dirigida al grafo
 void addEdge(Node* fromNode, Node* toNode, std::unordered_map<std::string, Node*>& graph);
 
-// Función para construir el grafo a partir de un conjunto de lecturas y un valor de k
 std::unordered_map<std::string, Node*> buildGraph(const std::vector<std::string>& reads, int k);
 
-// Función para imprimir la representación del grafo en consola
 void printGraph(const std::unordered_map<std::string, Node*>& graph);
 
-// Función que implementa el algoritmo de Fleury para encontrar un circuito euleriano
 std::vector<Node*> fleuryAlgorithm(std::unordered_map<std::string, Node*>& graph);
+
+void getKmerFrequency(const std::vector<std::string>& reads, std::unordered_map<std::string, Node*>& graph);
 
 #endif // GRAPH_H
