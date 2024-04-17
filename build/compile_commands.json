@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/home/mario/VSCode/Projects/bioinformatics-algorithms/build",
+  "command": "/usr/bin/g++  -I/home/mario/VSCode/Projects/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/include -g -std=gnu++14 -o CMakeFiles/main.dir/main.cpp.o -c /home/mario/VSCode/Projects/bioinformatics-algorithms/main.cpp",
+  "file": "/home/mario/VSCode/Projects/bioinformatics-algorithms/main.cpp"
+},
+{
+  "directory": "/home/mario/VSCode/Projects/bioinformatics-algorithms/build",
+  "command": "/usr/bin/g++  -I/home/mario/VSCode/Projects/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/include -g -std=gnu++14 -o CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/assembly.cpp.o -c /home/mario/VSCode/Projects/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/src/assembly.cpp",
+  "file": "/home/mario/VSCode/Projects/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/src/assembly.cpp"
+},
+{
+  "directory": "/home/mario/VSCode/Projects/bioinformatics-algorithms/build",
+  "command": "/usr/bin/g++  -I/home/mario/VSCode/Projects/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/include -g -std=gnu++14 -o CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.o -c /home/mario/VSCode/Projects/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/src/graph.cpp",
+  "file": "/home/mario/VSCode/Projects/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/src/graph.cpp"
+}
+]

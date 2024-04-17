@@ -15,6 +15,7 @@ std::unordered_map<std::string, Node*> buildGraph(const std::vector<std::string>
 std::unordered_map<std::string, int> getKmerFrequency(const std::string& sequence, int k);
 Node* findStartingNode(const std::unordered_map<std::string, Node*>& graph);
 void printGraph(const std::unordered_map<std::string, Node*>& graph);
-void Fleury(Node* start, Node* originalStart = nullptr); // Nueva declaración
+void Fleury(Node* start, std::unordered_map<std::string, Node*>& graph, Node* originalStart = nullptr);
+int countEdges(const std::unordered_map<std::string, Node*>& graph);
 
 #endif // GRAPH_H

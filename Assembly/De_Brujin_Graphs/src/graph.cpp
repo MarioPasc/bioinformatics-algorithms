@@ -76,7 +76,22 @@ Node* findStartingNode(const unordered_map<string, Node*>& graph) {
     return startNode;
 }
 
-void Fleury(Node* start, Node* originalStart = nullptr) {
+int countEdges(const std::unordered_map<std::string, Node*>& graph) {
+    int edgeCount = 0;
+
+    for (const auto& pair : graph) {
+        const Node* node = pair.second;
+        for (const Node* neighbor : node->neighbors) {
+            if (!neighbor->passed) {
+                edgeCount++;
+            }
+        }
+    }
+
+    return edgeCount;
+}
+
+void Fleury(Node* start, std::unordered_map<std::string, Node*>& graph, Node* originalStart = nullptr) {
     if (originalStart == nullptr) {
         originalStart = start; // Establece el nodo de inicio original en la primera llamada
     }
@@ -86,17 +101,25 @@ void Fleury(Node* start, Node* originalStart = nullptr) {
     // Marca el nodo actual como visitado
     start->passed = true;
 
-    for (auto neighbor : start->neighbors) {
-        // Caso base: si el vecino es el nodo de inicio original o si no tiene vecinos
-        if (neighbor == originalStart || start->neighbors.empty()) {
-            cout << neighbor->kmer << endl; // Imprime el k-mer del nodo de inicio original o el último nodo
-            return; // Termina la recursión
+    // Verifica si se han recorrido todas las aristas
+    int remainingEdges = countEdges(graph);
+
+    if (remainingEdges == 0) {
+        if (start == originalStart) {
+            cout << "Se ha encontrado un ciclo de Euler." << endl;
+        } else {
+            cout << "Se ha encontrado un camino de Euler." << endl;
         }
+        return;
+    } 
+
+    while (!start->neighbors.empty()) {
+        Node* neighbor = start->neighbors.back();
+        start->neighbors.pop_back();
 
         if (!neighbor->passed) {
             // Llama recursivamente a Fleury con el vecino como nuevo nodo de inicio
-            Fleury(neighbor, originalStart);
-            return; // Termina la recursión después de volver del llamado recursivo
+            Fleury(neighbor, graph, originalStart);
         }
     }
 }
