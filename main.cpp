@@ -17,6 +17,12 @@ std::vector<std::string> readFastqSequences(const std::string& filename) {
     // Corrección: Convertir std::string a const char* usando c_str()
     SeqStreamIn iss(filename.c_str());  // Usa c_str() para convertir std::string a const char*
 
+    // Verificar si el archivo se abrió correctamente
+    if (!iss) {
+        std::cerr << "Error al abrir el archivo: " << filename << std::endl;
+        return sequences;
+    }
+
     // Leer cada registro del archivo FASTQ
     while (iss >> record) {
         sequences.push_back(record.seq);  // Almacenar solo la secuencia
@@ -24,6 +30,7 @@ std::vector<std::string> readFastqSequences(const std::string& filename) {
 
     return sequences;
 }
+
 
 
 void runTest(const std::vector<std::string>& reads, int k, const std::string& testName) {
@@ -77,9 +84,40 @@ void calculateKmerFrequencyFastq(const std::string& fastqPath) {
     getKmerFrequency(sequences, graph);
 }
 
-int main() {
+int main(int argc, char* argv[]) {
+    if (argc < 3) {
+        std::cout << "Uso: " << argv[0] << " <kmerfreq|testFleury> <ruta_archivo|modo_prueba>" << std::endl;
+        return 1;
+    }
 
-    calculateKmerFrequencyFastq("/home/mariopasc/Downloads/DataSet_Trabajo_Casa/DataSet_Trabajo_Casa/ERR103404_2.fastq.gz");
+    std::string mode = argv[1];
+    std::string input = argv[2];
+
+    if (mode == "kmerfreq") {
+        // Llama directamente a la función con la ruta proporcionada
+        calculateKmerFrequencyFastq(input);
+
+    } else if (mode == "testFleury") {
+        std::vector<std::string> reads;
+        int k = 3;
+
+        if (input == "readsPerfectEulerian") {
+            reads = {"AGT", "GTA", "TAG", "AGT"};
+            runTest(reads, k, "Perfect Eulerian Cycle");
+        } else if (input == "readsNonEulerian") {
+            reads = {"AGT", "GTC", "TCA", "CAT"};
+            runTest(reads, k, "No Eulerian Cycle");
+        } else if (input == "readsEulerianWithDeadEnds") {
+            reads = {"AGT", "GTA", "TAG", "AGC", "GCT"};
+            runTest(reads, k, "Eulerian Cycle with Extras");
+        } else {
+            std::cout << "Modo de prueba inválido." << std::endl;
+            return 1;
+        }
+    } else {
+        std::cout << "Modo inválido. Use 'kmerfreq' o 'testFleury'." << std::endl;
+        return 1;
+    }
 
     return 0;
 }

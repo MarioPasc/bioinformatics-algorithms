@@ -1,41 +1,26 @@
+import sys
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Simulación de entrada: string multilínea como si fuera la salida de la consola
-data = """
-K-mero: CG, Frecuencia: 1833101
-K-mero: GC, Frecuencia: 2271922
-K-mero: TG, Frecuencia: 4276311
-K-mero: CT, Frecuencia: 3511102
-K-mero: TA, Frecuencia: 6362665
-K-mero: GG, Frecuencia: 1917435
-K-mero: TT, Frecuencia: 8178103
-K-mero: AT, Frecuencia: 7462032
-K-mero: GT, Frecuencia: 3481031
-K-mero: AA, Frecuencia: 8201271
-K-mero: TC, Frecuencia: 3814819
-K-mero: CA, Frecuencia: 4127012
-K-mero: AC, Frecuencia: 3380148
-K-mero: AG, Frecuencia: 3199112
-K-mero: CC, Frecuencia: 1625630
-K-mero: GA, Frecuencia: 3546511
-"""
+def main():
+    input_data = sys.stdin.read()
+    data = input_data.strip().split("\n")
+    kmer_data = [line.split(", ") for line in data]
+    kmer_info = [(item[0].split(": ")[1], int(item[1].split(": ")[1])) for item in kmer_data]
 
-# Procesar los datos
-data = data.strip().split("\n")
-kmer_data = [line.split(", ") for line in data]
-kmer_info = [(item[0].split(": ")[1], int(item[1].split(": ")[1])) for item in kmer_data]
+    df = pd.DataFrame(kmer_info, columns=["K-mer", "Frequency"])
+    df = df.sort_values(by="K-mer", ascending=True)
 
-# Convertir a DataFrame
-df = pd.DataFrame(kmer_info, columns=["K-mero", "Frecuencia"])
+    plt.figure(figsize=(10, 8))
+    plt.barh(df["K-mer"], df["Frequency"], color='skyblue')
+    plt.xlabel('Frequency')
+    plt.ylabel('K-mer')
+    plt.title('K-mer Frequency')
+    plt.grid(True, linestyle='--', alpha=0.6)
+    plt.savefig("images/kmerFreq.png")
+    plt.show()
 
-# Ordenar los datos por frecuencia para mejor visualización
-df = df.sort_values(by="K-mero", ascending=True)
-# Crear un gráfico de barras
-plt.figure(figsize=(10, 8))
-plt.barh(df["K-mero"], df["Frecuencia"], color='skyblue')
-plt.xlabel('Frecuencia')
-plt.ylabel('K-mero')
-plt.title('Frecuencia de K-mers')
-plt.grid(True, linestyle='--', alpha=0.6)
-plt.show()
+if __name__ == "__main__":
+    main()
+
+
