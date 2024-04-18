@@ -79,7 +79,7 @@ void runTests() {
 void calculateKmerFrequencyFastq(const std::string& fastqPath) {
     std::vector<std::string> sequences = readFastqSequences(fastqPath);
 
-    std::unordered_map<std::string, Node*> graph = buildGraph(sequences, 3);
+    std::unordered_map<std::string, Node*> graph = buildGraph(sequences, 5);
 
     getKmerFrequency(sequences, graph);
 }
