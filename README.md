@@ -9,6 +9,7 @@ This project implements various bioinformatics algorithms for DNA sequence assem
 - [Usage](#usage)
 - [Algorithms](#algorithms)
 - [File Structure](#file-structure)
+- [Results](#results)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -124,6 +125,37 @@ bioinformatics-algorithms
   <img src="images/graphEulerianExtras.png" alt="Graph with Eulerian Extras" width="400" style="margin-right: 20px;">
   <img src="images/graphExp3.png" alt="Graph Example 3" width="400">
 </div>
+
+Left:
+```
+Test: Eulerian Cycle with Extras
+Graph structure:
+Node GA has edges to: AG 
+Node TG has edges to: GA 
+Node CG has edges to: 
+Node CT has edges to: TG TT 
+Node TT has edges to: 
+Node AC has edges to: CT CG 
+Node TA has edges to: AC 
+Node GT has edges to: TA 
+Node AG has edges to: GT 
+Eulerian Circuit: AG -> GT -> TA -> AC -> CT -> TG -> GA -> AG -> END
+```
+Right:
+```
+Test: Assembly Lab Reads
+Graph structure:
+Node CA has edges to: AC 
+Node AG has edges to: GC 
+Node AC has edges to: 
+Node TA has edges to: AG 
+Node CT has edges to: TA 
+Node GC has edges to: CT CA 
+Node TG has edges to: GC 
+Node AT has edges to: TG 
+Eulerian Circuit: AT -> TG -> GC -> CT -> TA -> AG -> GC -> CA -> AC -> END
+```
+
 
 ## Contributing
 
