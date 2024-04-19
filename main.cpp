@@ -43,10 +43,6 @@ void runTest(const std::vector<std::string>& reads, int k, const std::string& te
     std::cout << "Graph structure:" << std::endl;
     printGraph(graph);
 
-    // Imprimir la frecuencia de cada k-mero
-    getKmerFrequency(reads, graph);
-
-
     // Encontrar el circuito Euleriano si existe
     std::vector<Node*> circuit = fleuryAlgorithm(graph);
     
@@ -108,8 +104,11 @@ int main(int argc, char* argv[]) {
             reads = {"AGT", "GTC", "TCA", "CAT"};
             runTest(reads, k, "No Eulerian Cycle");
         } else if (input == "readsEulerianWithDeadEnds") {
-            reads = {"AGT", "GTA", "TAG", "AGC", "GCT"};
+            reads = {"AGT", "GTA", "TAC", "ACT", "CTG", "TGA", "ACG", "GAG", "CTT"};
             runTest(reads, k, "Eulerian Cycle with Extras");
+        } else if (input == "practica"){
+            reads = {"ATGCTAGCAC"};
+            runTest(reads, k, "Assembly Lab Reads");
         } else {
             std::cout << "Modo de prueba inválido." << std::endl;
             return 1;
