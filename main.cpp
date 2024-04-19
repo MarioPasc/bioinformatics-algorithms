@@ -106,7 +106,7 @@ int main(int argc, char* argv[]) {
         } else if (input == "readsEulerianWithDeadEnds") {
             reads = {"AGT", "GTA", "TAC", "ACT", "CTG", "TGA", "ACG", "GAG", "CTT"};
             runTest(reads, k, "Eulerian Cycle with Extras");
-        } else if (input == "practica"){
+        } else if (input == "laboratory"){
             reads = {"ATGCTAGCAC"};
             runTest(reads, k, "Assembly Lab Reads");
         } else {
