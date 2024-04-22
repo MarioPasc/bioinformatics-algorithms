@@ -80,7 +80,7 @@ void calculateKmerFrequencyFastq(const std::string& fastqPath) {
     getKmerFrequency(sequences, graph);
 }
 
-int main(int argc, char* argv[]) {
+int main_assembly(int argc, char* argv[]) {
     if (argc < 3) {
         std::cout << "Uso: " << argv[0] << " <kmerfreq|testFleury> <ruta_archivo|modo_prueba>" << std::endl;
         return 1;
@@ -117,6 +117,10 @@ int main(int argc, char* argv[]) {
         std::cout << "Modo inválido. Use 'kmerfreq' o 'testFleury'." << std::endl;
         return 1;
     }
+}
+
+int main() {
+    
 
     return 0;
 }
