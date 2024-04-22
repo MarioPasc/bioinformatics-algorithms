@@ -9,14 +9,14 @@
 using namespace std;
 
 NeedlemanWunsch::NeedlemanWunsch(const std::string& seq_a, const std::string& seq_b, 
-                                 int match_score, int mismatch_penalty, int gap_penalty)
-    : sequence_a(seq_a),
-      sequence_b(seq_b),
-      match(match_score),
-      mismatch(mismatch_penalty),
-      gap(gap_penalty),
-      score_matrix(seq_a.length() + 1, std::vector<int>(seq_b.length() + 1)),
-      trace_matrix(seq_a.length() + 1, std::vector<char>(seq_b.length() + 1)) {
+                                 int match_score, int mismatch_penalty, int gap_penalty): 
+    sequence_a(seq_a),
+    sequence_b(seq_b),
+    match(match_score),
+    mismatch(mismatch_penalty),
+    gap(gap_penalty),
+    score_matrix(seq_a.length() + 1, std::vector<int>(seq_b.length() + 1)),
+    trace_matrix(seq_a.length() + 1, std::vector<char>(seq_b.length() + 1)) {
     // Inicializar las matrices con sus valores iniciales.
     initialize_matrices();
 }
@@ -24,13 +24,15 @@ NeedlemanWunsch::NeedlemanWunsch(const std::string& seq_a, const std::string& se
 void NeedlemanWunsch::initialize_matrices() {
     // Inicializar la primera fila.
     for (size_t j = 0; j < score_matrix[0].size(); ++j) {
-        score_matrix[0][j] = j * gap;
+        // score_matrix[0][j] = j * gap;
+        score_matrix[0][j] = 0;
         trace_matrix[0][j] = 'L';  // Indica que viene de la izquierda (gap en secuencia A).
     }
 
     // Inicializar la primera columna.
     for (size_t i = 0; i < score_matrix.size(); ++i) {
-        score_matrix[i][0] = i * gap;
+        //score_matrix[i][0] = i * gap;
+        score_matrix[i][0] = 0;
         trace_matrix[i][0] = 'U';  // Indica que viene de arriba (gap en secuencia B).
     }
 }
@@ -50,10 +52,10 @@ void NeedlemanWunsch::calculate_scores_and_traces() {
     // Define la puntuación de similaridad basada en una matriz de puntuación.
     auto s = [this](char a, char b) -> int {
         static const std::unordered_map<char, std::unordered_map<char, int>> score_map{
-            {'A', {{'A', match}, {'C', mismatch}, {'G', mismatch}, {'T', mismatch}}},
-            {'C', {{'A', mismatch}, {'C', match}, {'G', mismatch}, {'T', mismatch}}},
-            {'G', {{'A', mismatch}, {'C', mismatch}, {'G', match}, {'T', mismatch}}},
-            {'T', {{'A', mismatch}, {'C', mismatch}, {'G', mismatch}, {'T', match}}},
+            {'A', {{'A', match}, {'C', mismatch}, {'G', -mismatch}, {'T', mismatch}}},
+            {'C', {{'A', mismatch}, {'C', match}, {'G', mismatch}, {'T', -mismatch}}},
+            {'G', {{'A', -mismatch}, {'C', mismatch}, {'G', match}, {'T', mismatch}}},
+            {'T', {{'A', mismatch}, {'C', -mismatch}, {'G', mismatch}, {'T', match}}},
         };
         return score_map.at(a).at(b);
     };

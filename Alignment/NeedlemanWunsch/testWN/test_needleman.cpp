@@ -8,7 +8,7 @@ int main() {
 
     // Crear una instancia de NeedlemanWunsch.
     // Asumiendo que las penalizaciones de mismatch y gap son las mismas.
-    NeedlemanWunsch nw(seq1, seq2, 1, -1, -1);
+    NeedlemanWunsch nw(seq2, seq1, 3, -1, -2);
 
     // Ejecutar el algoritmo de alineamiento.
     nw.align();
