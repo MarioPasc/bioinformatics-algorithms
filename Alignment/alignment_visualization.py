@@ -45,6 +45,7 @@ def main():
     plt.figure(figsize=(10, 8))
     sns.heatmap(score_matrix, annot=True, fmt="d", cmap="viridis")
     plt.title("Score Matrix")
+    plt.tight_layout()
     plt.savefig('/home/mariopasc/C++/bioinformatics-algorithms/images/score_matrix.png')
     plt.close()
     
