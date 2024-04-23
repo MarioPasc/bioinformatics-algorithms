@@ -6,7 +6,7 @@ int main() {
     std::string seq1 = "TGGCATTCCGA";
     std::string seq2 = "GCCAATGAC";
 
-    // Crear una instancia de NeedlemanWunsch.
+    // Crear una instancia de SmithWaterman.
     // Asumiendo que las penalizaciones de mismatch y gap son las mismas.
     SmithWaterman sw(seq2, seq1, 3, -1, -2);
 
