@@ -166,5 +166,3 @@ You may also contact me via [LinkedIn](https://www.linkedin.com/in/mario-pascual
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
-
