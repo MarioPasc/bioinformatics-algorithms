@@ -1,9 +1,0 @@
-Test: No Eulerian Cycle
-Graph structure:
-Node AT has edges to: 
-Node TC has edges to: CA 
-Node GT has edges to: TC 
-Node CA has edges to: AT 
-Node AG has edges to: GT 
-Eulerian Circuit: AG -> GT -> TC -> CA -> AT -> END
-
