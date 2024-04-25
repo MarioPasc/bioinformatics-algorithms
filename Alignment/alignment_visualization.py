@@ -51,7 +51,8 @@ def main():
     
     # Define the colors for each trace direction
     trace_directions = ['U', 'D', 'L']
-    trace_colors = ['red', 'green', 'blue']  # Different color for each direction
+    trace_colors = ['#78C2AD', '#5555FF', '#FC8452']
+
 
     # Create a color map with a color for each direction
     cmap = mcolors.ListedColormap(trace_colors)

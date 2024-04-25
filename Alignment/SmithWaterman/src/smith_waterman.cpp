@@ -38,13 +38,8 @@ void SmithWaterman::initialize_matrices() {
 }
 
 void SmithWaterman::align() {
-    // Inicializar las matrices de puntuación y traza.
-    initialize_matrices();
-
-    // Calcular las puntuaciones y las trazas para cada celda de la matriz.
     calculate_scores_and_traces();
 
-    // Reconstruir el alineamiento a partir de las matrices de puntuación y traza.
     traceback_alignment();
 }
 

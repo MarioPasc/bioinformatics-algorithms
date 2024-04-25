@@ -1,0 +1,42 @@
+[
+{
+  "directory": "/home/mariopasc/C++/bioinformatics-algorithms/build",
+  "command": "/usr/bin/g++  -I/home/mariopasc/C++/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/include -I/home/mariopasc/C++/bioinformatics-algorithms/Alignment/NeedlemanWunsch/include -I/home/mariopasc/C++/bioinformatics-algorithms/Alignment/SmithWaterman/include -I/home/mariopasc/C++/bioinformatics-algorithms/external/kseqpp/include -g -std=gnu++14 -o CMakeFiles/main.dir/main.cpp.o -c /home/mariopasc/C++/bioinformatics-algorithms/main.cpp",
+  "file": "/home/mariopasc/C++/bioinformatics-algorithms/main.cpp"
+},
+{
+  "directory": "/home/mariopasc/C++/bioinformatics-algorithms/build",
+  "command": "/usr/bin/g++  -I/home/mariopasc/C++/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/include -I/home/mariopasc/C++/bioinformatics-algorithms/Alignment/NeedlemanWunsch/include -I/home/mariopasc/C++/bioinformatics-algorithms/Alignment/SmithWaterman/include -I/home/mariopasc/C++/bioinformatics-algorithms/external/kseqpp/include -g -std=gnu++14 -o CMakeFiles/main.dir/Assembly/De_Brujin_Graphs/src/graph.cpp.o -c /home/mariopasc/C++/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/src/graph.cpp",
+  "file": "/home/mariopasc/C++/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/src/graph.cpp"
+},
+{
+  "directory": "/home/mariopasc/C++/bioinformatics-algorithms/build",
+  "command": "/usr/bin/g++  -I/home/mariopasc/C++/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/include -I/home/mariopasc/C++/bioinformatics-algorithms/Alignment/NeedlemanWunsch/include -I/home/mariopasc/C++/bioinformatics-algorithms/Alignment/SmithWaterman/include -I/home/mariopasc/C++/bioinformatics-algorithms/external/kseqpp/include -g -std=gnu++14 -o CMakeFiles/main.dir/Alignment/NeedlemanWunsch/src/needleman_wunsch.cpp.o -c /home/mariopasc/C++/bioinformatics-algorithms/Alignment/NeedlemanWunsch/src/needleman_wunsch.cpp",
+  "file": "/home/mariopasc/C++/bioinformatics-algorithms/Alignment/NeedlemanWunsch/src/needleman_wunsch.cpp"
+},
+{
+  "directory": "/home/mariopasc/C++/bioinformatics-algorithms/build",
+  "command": "/usr/bin/g++  -I/home/mariopasc/C++/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/include -I/home/mariopasc/C++/bioinformatics-algorithms/Alignment/NeedlemanWunsch/include -I/home/mariopasc/C++/bioinformatics-algorithms/Alignment/SmithWaterman/include -I/home/mariopasc/C++/bioinformatics-algorithms/external/kseqpp/include -g -std=gnu++14 -o CMakeFiles/main.dir/Alignment/SmithWaterman/src/smith_waterman.cpp.o -c /home/mariopasc/C++/bioinformatics-algorithms/Alignment/SmithWaterman/src/smith_waterman.cpp",
+  "file": "/home/mariopasc/C++/bioinformatics-algorithms/Alignment/SmithWaterman/src/smith_waterman.cpp"
+},
+{
+  "directory": "/home/mariopasc/C++/bioinformatics-algorithms/build",
+  "command": "/usr/bin/g++  -I/home/mariopasc/C++/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/include -I/home/mariopasc/C++/bioinformatics-algorithms/Alignment/NeedlemanWunsch/include -I/home/mariopasc/C++/bioinformatics-algorithms/Alignment/SmithWaterman/include -I/home/mariopasc/C++/bioinformatics-algorithms/external/kseqpp/include -g -std=gnu++14 -o CMakeFiles/testNW.dir/Alignment/NeedlemanWunsch/testWN/test_needleman.cpp.o -c /home/mariopasc/C++/bioinformatics-algorithms/Alignment/NeedlemanWunsch/testWN/test_needleman.cpp",
+  "file": "/home/mariopasc/C++/bioinformatics-algorithms/Alignment/NeedlemanWunsch/testWN/test_needleman.cpp"
+},
+{
+  "directory": "/home/mariopasc/C++/bioinformatics-algorithms/build",
+  "command": "/usr/bin/g++  -I/home/mariopasc/C++/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/include -I/home/mariopasc/C++/bioinformatics-algorithms/Alignment/NeedlemanWunsch/include -I/home/mariopasc/C++/bioinformatics-algorithms/Alignment/SmithWaterman/include -I/home/mariopasc/C++/bioinformatics-algorithms/external/kseqpp/include -g -std=gnu++14 -o CMakeFiles/testNW.dir/Alignment/NeedlemanWunsch/src/needleman_wunsch.cpp.o -c /home/mariopasc/C++/bioinformatics-algorithms/Alignment/NeedlemanWunsch/src/needleman_wunsch.cpp",
+  "file": "/home/mariopasc/C++/bioinformatics-algorithms/Alignment/NeedlemanWunsch/src/needleman_wunsch.cpp"
+},
+{
+  "directory": "/home/mariopasc/C++/bioinformatics-algorithms/build",
+  "command": "/usr/bin/g++  -I/home/mariopasc/C++/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/include -I/home/mariopasc/C++/bioinformatics-algorithms/Alignment/NeedlemanWunsch/include -I/home/mariopasc/C++/bioinformatics-algorithms/Alignment/SmithWaterman/include -I/home/mariopasc/C++/bioinformatics-algorithms/external/kseqpp/include -g -std=gnu++14 -o CMakeFiles/testSW.dir/Alignment/SmithWaterman/testSW/test_smith.cpp.o -c /home/mariopasc/C++/bioinformatics-algorithms/Alignment/SmithWaterman/testSW/test_smith.cpp",
+  "file": "/home/mariopasc/C++/bioinformatics-algorithms/Alignment/SmithWaterman/testSW/test_smith.cpp"
+},
+{
+  "directory": "/home/mariopasc/C++/bioinformatics-algorithms/build",
+  "command": "/usr/bin/g++  -I/home/mariopasc/C++/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/include -I/home/mariopasc/C++/bioinformatics-algorithms/Alignment/NeedlemanWunsch/include -I/home/mariopasc/C++/bioinformatics-algorithms/Alignment/SmithWaterman/include -I/home/mariopasc/C++/bioinformatics-algorithms/external/kseqpp/include -g -std=gnu++14 -o CMakeFiles/testSW.dir/Alignment/SmithWaterman/src/smith_waterman.cpp.o -c /home/mariopasc/C++/bioinformatics-algorithms/Alignment/SmithWaterman/src/smith_waterman.cpp",
+  "file": "/home/mariopasc/C++/bioinformatics-algorithms/Alignment/SmithWaterman/src/smith_waterman.cpp"
+}
+]
