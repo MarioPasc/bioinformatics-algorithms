@@ -24,23 +24,20 @@ NeedlemanWunsch::NeedlemanWunsch(const std::string& seq_a, const std::string& se
 void NeedlemanWunsch::initialize_matrices() {
     // Inicializar la primera fila.
     for (size_t j = 0; j < score_matrix[0].size(); ++j) {
-        // score_matrix[0][j] = j * gap;
-        score_matrix[0][j] = 0;
+        score_matrix[0][j] = j * gap;
+        //score_matrix[0][j] = 0;
         trace_matrix[0][j] = 'L';  // Indica que viene de la izquierda (gap en secuencia A).
     }
 
     // Inicializar la primera columna.
     for (size_t i = 0; i < score_matrix.size(); ++i) {
-        //score_matrix[i][0] = i * gap;
-        score_matrix[i][0] = 0;
+        score_matrix[i][0] = i * gap;
+        //score_matrix[i][0] = 0;
         trace_matrix[i][0] = 'U';  // Indica que viene de arriba (gap en secuencia B).
     }
 }
 
 void NeedlemanWunsch::align() {
-    // Inicializar las matrices de puntuación y traza.
-    initialize_matrices();
-
     // Calcular las puntuaciones y las trazas para cada celda de la matriz.
     calculate_scores_and_traces();
 

@@ -8,7 +8,7 @@ int main() {
 
     // Crear una instancia de SmithWaterman.
     // Asumiendo que las penalizaciones de mismatch y gap son las mismas.
-    SmithWaterman sw(seq2, seq1, 3, -1, -2);
+    SmithWaterman sw(seq2, seq1, 5, -3, -4);
 
     // Ejecutar el algoritmo de alineamiento.
     sw.align();
