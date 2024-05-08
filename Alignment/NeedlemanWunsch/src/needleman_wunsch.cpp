@@ -45,6 +45,11 @@ void NeedlemanWunsch::align() {
     traceback_alignment();
 }
 
+// Añadido por necesidad para poder calcular los alineamientos múltiples
+int NeedlemanWunsch::get_alignment_score() const {
+    return score_matrix[sequence_a.length()][sequence_b.length()];
+}
+
 void NeedlemanWunsch::calculate_scores_and_traces() {
     // Define la puntuación de similaridad basada en una matriz de puntuación.
     auto s = [this](char a, char b) -> int {
