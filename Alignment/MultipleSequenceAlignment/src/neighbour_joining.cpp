@@ -52,3 +52,57 @@ void NeighbourJoining::find_smallest_distance_node() const {
     }
     std::cout << "Smallest distance: " << min_distance << " between nodes " << min_i << " and " << min_j << std::endl;
 }
+
+void NeighbourJoining::join_smallest_distance_nodes() {
+    int num_sequences = sequences.size();
+    int min_distance = std::numeric_limits<int>::max();
+    int min_i = -1;
+    int min_j = -1;
+
+    // Encontrar el par de nodos con la distancia más pequeña
+    for (int i = 0; i < num_sequences; ++i) {
+        for (int j = i + 1; j < num_sequences; ++j) {
+            if (distance_matrix[i][j] < min_distance) {
+                min_distance = distance_matrix[i][j];
+                min_i = i;
+                min_j = j;
+            }
+        }
+    }
+
+    // Crear un nuevo nodo que represente la fusión de los nodos con la distancia más pequeña
+    Node new_node;
+    new_node.id = nodes.size();
+    new_node.left_child = min_i;
+    new_node.right_child = min_j;
+    nodes.push_back(new_node);
+
+    // Crear una nueva matriz de distancias con la dimensión correspondiente a la cantidad de nodos activos
+    int new_num_sequences = num_sequences - 1;
+    std::vector<std::vector<int>> new_distance_matrix(new_num_sequences, std::vector<int>(new_num_sequences, 0));
+
+    // Rellenar la nueva matriz de distancias con los nuevos valores
+    int new_index = 0;
+    for (int i = 0; i < num_sequences; ++i) {
+        if (i != min_i && i != min_j) {
+            int new_jndex = 0;
+            for (int j = 0; j < num_sequences; ++j) {
+                if (j != min_i && j != min_j) {
+                    new_distance_matrix[new_index][new_jndex] = distance_matrix[i][j];
+                    new_jndex++;
+                }
+            }
+            int distance = (distance_matrix[min_i][i] + distance_matrix[min_j][i] - distance_matrix[min_i][min_j]) / 2;
+            new_distance_matrix[new_index][new_num_sequences - 1] = distance;
+            new_distance_matrix[new_num_sequences - 1][new_index] = distance;
+            new_index++;
+        }
+    }
+
+    // Liberar la memoria de la matriz de distancias anterior
+    distance_matrix.clear();
+    distance_matrix.shrink_to_fit();
+
+    // Asignar la nueva matriz de distancias
+    distance_matrix = new_distance_matrix;
+}

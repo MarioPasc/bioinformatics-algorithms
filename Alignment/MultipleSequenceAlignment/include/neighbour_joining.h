@@ -17,6 +17,7 @@ public:
     void calculate_distance_matrix();
     void print_distance_matrix() const;
     void find_smallest_distance_node() const;
+    void join_smallest_distance_nodes();
 
 private:
     std::vector<std::string> sequences;
