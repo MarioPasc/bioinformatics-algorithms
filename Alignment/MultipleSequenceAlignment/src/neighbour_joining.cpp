@@ -8,8 +8,8 @@ NeighbourJoining::NeighbourJoining(const std::vector<std::string>& sequences) : 
     nodes.resize(num_sequences);
     for (int i = 0; i < num_sequences; ++i) {
         nodes[i].id = i;
-        nodes[i].left_child = -1;
-        nodes[i].right_child = -1;
+        nodes[i].left_child = nullptr;
+        nodes[i].right_child = nullptr;
     }
 }
 void NeighbourJoining::calculate_distance_matrix() {
@@ -56,11 +56,24 @@ void NeighbourJoining::find_smallest_distance_node() const {
 
 void NeighbourJoining::join_smallest_distance_nodes() {
     int num_nodes = distance_matrix->size();
+    std::pair<int, int> smallest_distance_pair = find_smallest_distance_pair(num_nodes);
+    int min_i = smallest_distance_pair.first;
+    int min_j = smallest_distance_pair.second;
+
+    Node new_node = create_new_node(min_i, min_j);
+    nodes.push_back(new_node);
+
+    int new_num_nodes = num_nodes - 1;
+    auto new_distance_matrix = create_new_distance_matrix(num_nodes, new_num_nodes, min_i, min_j);
+
+    distance_matrix = std::move(new_distance_matrix);
+}
+
+std::pair<int, int> NeighbourJoining::find_smallest_distance_pair(int num_nodes) {
     int min_distance = std::numeric_limits<int>::max();
     int min_i = -1;
     int min_j = -1;
 
-    // Encontrar el par de nodos con la distancia más pequeña
     for (int i = 0; i < num_nodes; ++i) {
         for (int j = i + 1; j < num_nodes; ++j) {
             if ((*distance_matrix)[i][j] < min_distance) {
@@ -71,18 +84,20 @@ void NeighbourJoining::join_smallest_distance_nodes() {
         }
     }
 
-    // Crear un nuevo nodo que represente la fusión de los nodos con la distancia más pequeña
+    return std::make_pair(min_i, min_j);
+}
+
+NeighbourJoining::Node NeighbourJoining::create_new_node(int min_i, int min_j) {
     Node new_node;
     new_node.id = nodes.size();
-    new_node.left_child = nodes[min_i].id;
-    new_node.right_child = nodes[min_j].id;
-    nodes.push_back(new_node);
+    new_node.left_child = &nodes[min_i];
+    new_node.right_child = &nodes[min_j];
+    return new_node;
+}
 
-    // Crear una nueva matriz de distancias con la dimensión correspondiente a la cantidad de nodos activos
-    int new_num_nodes = num_nodes - 1;
+std::unique_ptr<std::vector<std::vector<int>>> NeighbourJoining::create_new_distance_matrix(int num_nodes, int new_num_nodes, int min_i, int min_j) {
     auto new_distance_matrix = std::make_unique<std::vector<std::vector<int>>>(new_num_nodes, std::vector<int>(new_num_nodes, 0));
 
-    // Rellenar la nueva matriz de distancias con los nuevos valores
     int new_index = 0;
     for (int i = 0; i < num_nodes; ++i) {
         if (i != min_i && i != min_j) {
@@ -100,6 +115,5 @@ void NeighbourJoining::join_smallest_distance_nodes() {
         }
     }
 
-    // Asignar la nueva matriz de distancias utilizando std::move
-    distance_matrix = std::move(new_distance_matrix);
+    return new_distance_matrix;
 }

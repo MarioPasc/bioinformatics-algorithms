@@ -3,7 +3,7 @@
 #include <string>
 #include "neighbour_joining.h"
 
-int main() {
+int test_node_fusion() {
     // Secuencias de prueba
     std::vector<std::string> sequences = {
         "ATGCGA",
@@ -47,5 +47,23 @@ int main() {
     // Mostrar la siguiente matriz de distancias
     std::cout << "Siguiente matriz de distancias:" << std::endl;
     nj.print_distance_matrix();
+
+    return 0;
+}
+
+int main() {
+    // Secuencias de prueba
+    std::vector<std::string> sequences = {
+        "ATGCGA",
+        "ATGGACGA",
+        "ATCCA",
+        "ATGGA",
+        "CTGCAA"
+    };
+
+    // Crear objeto NeighbourJoining
+    NeighbourJoining nj(sequences);
+
+    test_node_fusion();
     return 0;
 }
