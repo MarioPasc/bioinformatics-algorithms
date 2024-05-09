@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"jsonFile" : "directory-.-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.10"
@@ -17,11 +17,13 @@
 					[
 						0,
 						1,
-						2
+						2,
+						3,
+						4
 					]
 				}
 			],
-			"name" : "Debug",
+			"name" : "",
 			"projects" : 
 			[
 				{
@@ -34,7 +36,9 @@
 					[
 						0,
 						1,
-						2
+						2,
+						3,
+						4
 					]
 				}
 			],
@@ -43,21 +47,35 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "main::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-main-Debug-58454845829293426352.json",
+					"jsonFile" : "target-main-19f83a2e559349621d91.json",
 					"name" : "main",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
+					"id" : "needleman_wunsch::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-needleman_wunsch-c83d24833ebadebc3aed.json",
+					"name" : "needleman_wunsch",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "testNJ::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-testNJ-beacee92dbcca524fdfa.json",
+					"name" : "testNJ",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
 					"id" : "testNW::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-testNW-Debug-fde01927ab1627ed68f4.json",
+					"jsonFile" : "target-testNW-7d09d30b72eda235b7ac.json",
 					"name" : "testNW",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "testSW::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-testSW-Debug-f2cb5a1eefb74d7b9071.json",
+					"jsonFile" : "target-testSW-8d580ace5e15a95a82d2.json",
 					"name" : "testSW",
 					"projectIndex" : 0
 				}
@@ -67,8 +85,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/mariopasc/C++/bioinformatics-algorithms/build",
-		"source" : "/home/mariopasc/C++/bioinformatics-algorithms"
+		"build" : "/home/mario/VSCode/C++/bioinformatics-algorithms/build",
+		"source" : "/home/mario/VSCode/C++/bioinformatics-algorithms"
 	},
 	"version" : 
 	{

@@ -19,7 +19,7 @@ public:
     std::pair<std::string, std::string> get_alignment() const;
     void print_score_matrix() const;
     void print_trace_matrix() const;
-
+    int get_alignment_score() const;
 
 private:
     // Métodos para el algoritmo.

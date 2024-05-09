@@ -145,8 +145,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/home/mariopasc/C++/bioinformatics-algorithms/build",
-		"source" : "/home/mariopasc/C++/bioinformatics-algorithms"
+		"build" : "/home/mario/VSCode/C++/bioinformatics-algorithms/build",
+		"source" : "/home/mario/VSCode/C++/bioinformatics-algorithms"
 	},
 	"version" : 
 	{

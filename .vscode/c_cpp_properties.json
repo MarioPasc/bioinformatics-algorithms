@@ -7,7 +7,9 @@
                 "${workspaceFolder}/Assembly/**",
                 "${workspaceFolder}/Alignment/**",
                 "${workspaceFolder}/external/kseqpp",
-                "${workspaceFolder}/external/kseqpp/include"
+                "${workspaceFolder}/external/kseqpp/include",
+                "${workspaceFolder}/Alignment/MultipleSequenceAlignment/include",
+                "${workspaceFolder}/Alignment/NeedlemanWunsch/include"
             ],
             "defines": [],
             "cStandard": "c17",

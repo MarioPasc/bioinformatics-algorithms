@@ -26,7 +26,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 33,
+				"line" : 35,
 				"parent" : 0
 			},
 			{
@@ -38,7 +38,7 @@
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 34,
+				"line" : 36,
 				"parent" : 0
 			}
 		]
@@ -49,9 +49,6 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g"
-				},
-				{
 					"fragment" : "-std=gnu++14"
 				}
 			],
@@ -59,19 +56,23 @@
 			[
 				{
 					"backtrace" : 2,
-					"path" : "/home/mariopasc/C++/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/include"
+					"path" : "/home/mario/VSCode/C++/bioinformatics-algorithms/Assembly/De_Brujin_Graphs/include"
 				},
 				{
 					"backtrace" : 2,
-					"path" : "/home/mariopasc/C++/bioinformatics-algorithms/Alignment/NeedlemanWunsch/include"
+					"path" : "/home/mario/VSCode/C++/bioinformatics-algorithms/Alignment/NeedlemanWunsch/include"
 				},
 				{
 					"backtrace" : 2,
-					"path" : "/home/mariopasc/C++/bioinformatics-algorithms/Alignment/SmithWaterman/include"
+					"path" : "/home/mario/VSCode/C++/bioinformatics-algorithms/Alignment/SmithWaterman/include"
 				},
 				{
 					"backtrace" : 2,
-					"path" : "/home/mariopasc/C++/bioinformatics-algorithms/external/kseqpp/include"
+					"path" : "/home/mario/VSCode/C++/bioinformatics-algorithms/Alignment/MultipleSequenceAlignment/include"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/home/mario/VSCode/C++/bioinformatics-algorithms/external/kseqpp/include"
 				}
 			],
 			"language" : "CXX",
@@ -95,10 +96,6 @@
 	{
 		"commandFragments" : 
 		[
-			{
-				"fragment" : "-g",
-				"role" : "flags"
-			},
 			{
 				"fragment" : "",
 				"role" : "flags"
