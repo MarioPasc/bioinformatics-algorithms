@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "needleman_wunsch.h"
+#include <memory>
 class NeighbourJoining {
 public:
     struct Node {
@@ -21,7 +22,7 @@ public:
 
 private:
     std::vector<std::string> sequences;
-    std::vector<std::vector<int>> distance_matrix;
+    std::unique_ptr<std::vector<std::vector<int>>> distance_matrix;
     std::vector<Node> nodes;
 };
 
