@@ -55,14 +55,14 @@ void NeighbourJoining::find_smallest_distance_node() const {
 }
 
 void NeighbourJoining::join_smallest_distance_nodes() {
-    int num_sequences = sequences.size();
+    int num_nodes = distance_matrix->size();
     int min_distance = std::numeric_limits<int>::max();
     int min_i = -1;
     int min_j = -1;
 
     // Encontrar el par de nodos con la distancia más pequeña
-    for (int i = 0; i < num_sequences; ++i) {
-        for (int j = i + 1; j < num_sequences; ++j) {
+    for (int i = 0; i < num_nodes; ++i) {
+        for (int j = i + 1; j < num_nodes; ++j) {
             if ((*distance_matrix)[i][j] < min_distance) {
                 min_distance = (*distance_matrix)[i][j];
                 min_i = i;
@@ -74,28 +74,28 @@ void NeighbourJoining::join_smallest_distance_nodes() {
     // Crear un nuevo nodo que represente la fusión de los nodos con la distancia más pequeña
     Node new_node;
     new_node.id = nodes.size();
-    new_node.left_child = min_i;
-    new_node.right_child = min_j;
+    new_node.left_child = nodes[min_i].id;
+    new_node.right_child = nodes[min_j].id;
     nodes.push_back(new_node);
 
     // Crear una nueva matriz de distancias con la dimensión correspondiente a la cantidad de nodos activos
-    int new_num_sequences = num_sequences - 1;
-    auto new_distance_matrix = std::make_unique<std::vector<std::vector<int>>>(new_num_sequences, std::vector<int>(new_num_sequences, 0));
+    int new_num_nodes = num_nodes - 1;
+    auto new_distance_matrix = std::make_unique<std::vector<std::vector<int>>>(new_num_nodes, std::vector<int>(new_num_nodes, 0));
 
     // Rellenar la nueva matriz de distancias con los nuevos valores
     int new_index = 0;
-    for (int i = 0; i < num_sequences; ++i) {
+    for (int i = 0; i < num_nodes; ++i) {
         if (i != min_i && i != min_j) {
             int new_jndex = 0;
-            for (int j = 0; j < num_sequences; ++j) {
+            for (int j = 0; j < num_nodes; ++j) {
                 if (j != min_i && j != min_j) {
                     (*new_distance_matrix)[new_index][new_jndex] = (*distance_matrix)[i][j];
                     new_jndex++;
                 }
             }
-            int distance = ((*distance_matrix)[min_i][i] + (*distance_matrix)[min_j][i] - (*distance_matrix)[min_i][min_j]) / 2;
-            (*new_distance_matrix)[new_index][new_num_sequences - 1] = distance;
-            (*new_distance_matrix)[new_num_sequences - 1][new_index] = distance;
+            int distance = ((*distance_matrix)[i][min_i] + (*distance_matrix)[i][min_j] - (*distance_matrix)[min_i][min_j]) / 2;
+            (*new_distance_matrix)[new_index][new_num_nodes - 1] = distance;
+            (*new_distance_matrix)[new_num_nodes - 1][new_index] = distance;
             new_index++;
         }
     }

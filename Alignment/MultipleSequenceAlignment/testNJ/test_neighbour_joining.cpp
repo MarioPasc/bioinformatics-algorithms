@@ -22,6 +22,15 @@ int main() {
     // Mostrar la matriz de distancias original
     std::cout << "Matriz de distancias original:" << std::endl;
     nj.print_distance_matrix();
+    
+    // Fusionar los nodos con la distancia más pequeña
+    nj.join_smallest_distance_nodes();
+
+    // Mostrar la siguiente matriz de distancias
+    std::cout << "Siguiente matriz de distancias:" << std::endl;
+    nj.print_distance_matrix();
+    
+    /////////////////////////////////////////////////////////////////
 
     // Fusionar los nodos con la distancia más pequeña
     nj.join_smallest_distance_nodes();
@@ -30,5 +39,13 @@ int main() {
     std::cout << "Siguiente matriz de distancias:" << std::endl;
     nj.print_distance_matrix();
 
+    /////////////////////////////////////////////////////////////////
+
+    // Fusionar los nodos con la distancia más pequeña
+    nj.join_smallest_distance_nodes();
+
+    // Mostrar la siguiente matriz de distancias
+    std::cout << "Siguiente matriz de distancias:" << std::endl;
+    nj.print_distance_matrix();
     return 0;
 }
