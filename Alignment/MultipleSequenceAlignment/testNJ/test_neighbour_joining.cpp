@@ -2,15 +2,16 @@
 #include <vector>
 #include <string>
 #include "neighbour_joining.h"
+#include <unordered_map>
 
 int test_node_fusion() {
-    // Secuencias de prueba
-    std::vector<std::string> sequences = {
-        "ATGCGA",
-        "ATGGACGA",
-        "ATCCA",
-        "ATGGA",
-        "CTGCAA"
+    // Secuencias de prueba en formato unordered_map
+    std::unordered_map<std::string, std::string> sequences = {
+        {"SeqA", "ATGCGA"},
+        {"SeqB", "ATGGACGA"},
+        {"SeqC", "ATCCA"},
+        {"SeqD", "ATGGA"},
+        {"SeqE", "CTGCAA"}
     };
 
     // Crear objeto NeighbourJoining
@@ -52,18 +53,21 @@ int test_node_fusion() {
 }
 
 int main() {
-    // Secuencias de prueba
-    std::vector<std::string> sequences = {
-        "ATGCGA",
-        "ATGGACGA",
-        "ATCCA",
-        "ATGGA",
-        "CTGCAA"
+    // Secuencias de prueba en formato unordered_map
+    std::unordered_map<std::string, std::string> sequences = {
+        {"SeqA", "ATGCGA"},
+        {"SeqB", "ATGGACGA"},
+        {"SeqC", "ATCCA"},
+        {"SeqD", "ATGGA"}
     };
 
     // Crear objeto NeighbourJoining
     NeighbourJoining nj(sequences);
 
-    test_node_fusion();
+    // Mostrar la matriz de distancias original
+    std::cout << "Matriz de distancias original:" << std::endl;
+    nj.print_distance_matrix();
+
+    nj.build_tree();
     return 0;
 }
