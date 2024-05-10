@@ -1,0 +1,20 @@
+Construcción del árbol completada.
+Árbol filogenético:
+└──SeqE-SeqC-SeqA-SeqD-SeqB
+    ├──SeqE-SeqC
+    │   ├──SeqE
+    │   └──SeqC
+    └──SeqA-SeqD-SeqB
+        ├──SeqA
+        └──SeqD-SeqB
+            ├──SeqD
+            └──SeqB
+Árbol filogenético en formato Newick:
+((SeqE:0.000000,SeqC:0.000000)SeqE-SeqC:0.100000,(SeqA:0.000000,(SeqD:0.000000,SeqB:0.000000)SeqD-SeqB:0.100000)SeqA-SeqD-SeqB:0.200000)SeqE-SeqC-SeqA-SeqD-SeqB:0.300000;
+===================
+-GCTAGCTGACGTAGCTGACGTAGCTGACGTAGCTGA---
+-GCTAGCTGACGTAGCTGACGTAGCTGACGTAGCTGA----
+-GC-TAGCTGACGTAGCTGACGTAGCTGACGTAGCTGA----
+-GC-TAGCTGACGTAGCTGACGTAGCTGACGTAGCTGA----
+Alineamiento final:
+-GC-TAGCTGACGTAGCTGACGTAGCTGACGTAGCTGA----

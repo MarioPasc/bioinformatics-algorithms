@@ -52,7 +52,13 @@ int NeedlemanWunsch::get_alignment_score() const {
 
 void NeedlemanWunsch::calculate_scores_and_traces() {
     // Define la puntuación de similaridad basada en una matriz de puntuación.
+    // Añadido por necesidad para poder calcular los alineamientos múltiples
     auto s = [this](char a, char b) -> int {
+        // Caso especial para manejar gaps
+        if (a == '-' || b == '-') {
+            return gap; // Retorna el costo de gap cuando se compara con '-'
+        }
+
         static const std::unordered_map<char, std::unordered_map<char, int>> score_map{
             {'A', {{'A', match}, {'C', mismatch}, {'G', -mismatch}, {'T', mismatch}}},
             {'C', {{'A', mismatch}, {'C', match}, {'G', mismatch}, {'T', -mismatch}}},

@@ -66,7 +66,7 @@ void NeighbourJoining::find_smallest_distance_node() const {
         }
     }
     if (min_i != -1 && min_j != -1) {
-        std::cout << "Smallest distance: " << min_distance << " between nodes " << nodes[min_i]->id << " and " << nodes[min_j]->id << std::endl;
+        //std::cout << "Smallest distance: " << min_distance << " between nodes " << nodes[min_i]->id << " and " << nodes[min_j]->id << std::endl;
     }
 }
 
@@ -93,7 +93,7 @@ void NeighbourJoining::join_smallest_distance_nodes() {
     // Crear una nueva matriz de distancias
     auto new_distance_matrix = create_new_distance_matrix(min_i, min_j);
     distance_matrix = std::move(new_distance_matrix);
-
+    /*
     // Imprimir el estado de los nodos después de la fusión
     for (int i = 0; i < nodes.size(); ++i) {
         if (nodes[i]->active) {
@@ -102,6 +102,7 @@ void NeighbourJoining::join_smallest_distance_nodes() {
             std::cout << "Node Inactive: " << nodes[i]->id << std::endl;
         }
     }
+    */
 }
 
 void NeighbourJoining::update_active_nodes() {
@@ -111,10 +112,11 @@ void NeighbourJoining::update_active_nodes() {
             active_nodes.push_back(node);  // Añadir solo nodos activos a la lista
         }
     }
-
+    /*
     for (Node* node: active_nodes) {
         std::cout << "Active Node: " << node->id << std::endl;
     }
+    */
 }
 
 std::pair<int, int> NeighbourJoining::find_smallest_distance_pair() {
@@ -140,8 +142,8 @@ std::pair<int, int> NeighbourJoining::find_smallest_distance_pair() {
         return std::make_pair(-1, -1);
     }
 
-    std::cout << "Smallest Distance Pair: (" << active_nodes[min_i]->id << ", " << active_nodes[min_j]->id << ") with distance " << min_distance << std::endl;
-    std::cout << "Smallest Distance Pair: (" << min_i << ", " << min_j << ") with distance " << min_distance << std::endl;
+    //std::cout << "Smallest Distance Pair: (" << active_nodes[min_i]->id << ", " << active_nodes[min_j]->id << ") with distance " << min_distance << std::endl;
+    //std::cout << "Smallest Distance Pair: (" << min_i << ", " << min_j << ") with distance " << min_distance << std::endl;
     return std::make_pair(min_i, min_j);
 }
 
@@ -155,11 +157,11 @@ void NeighbourJoining::create_new_node(int min_i, int min_j) {
     new_node->right_child = active_nodes[min_j];
     new_node->sequence = "";
     new_node->active = true;
+    new_node->depth = std::max(new_node->left_child->depth, new_node->right_child->depth) + 1;
 
     // Desactivar los nodos antiguos
     new_node->left_child->active = false;
     new_node->right_child->active = false;
-    std::cout << "New node ID: " << new_node->id << std::endl;
     nodes.push_back(new_node);  // Añadir el nuevo nodo a la lista
     update_active_nodes(); // Ahora que hemos creado el nuevo nodo, actualizamos la lista.
 }
@@ -196,30 +198,25 @@ Esta es la función principal, que va creando el árbol
 */
 void NeighbourJoining::build_tree() {
     calculate_distance_matrix();
-    std::cout << "Matriz de distancias inicial en build_tree:" << std::endl;
-    print_distance_matrix();
-
     while (distance_matrix->size() > 1) {
         join_smallest_distance_nodes();
-        std::cout << "Matriz de distancias después de una fusión:" << std::endl;
-        print_distance_matrix();
     }
 
     std::cout << "Construcción del árbol completada." << std::endl;
     if (!nodes.empty()) {
-        Node* root = nodes.back(); // Asumiendo que el último nodo es la raíz
+        Node* root = nodes.back();  // Asumiendo que el último nodo es la raíz
         std::cout << "Árbol filogenético:" << std::endl;
-        
-        std::vector<Node*> order = get_alignment_order(root);
-        for (Node* node : order) {
-            std::cout << "Order: " << node->id << "->" << std::endl;
-        }
-
+        print_tree(root, "", false);
+        std::cout << "Árbol filogenético en formato Newick:" << std::endl;
+        std::string newick_format = generate_newick_format(root);
+        std::cout << newick_format << ";" << std::endl;  // Añade el punto y coma final necesario en formato Newick
+        std::cout << "===================" << std::endl;
         std::string alignment = align_sequences();
         std::cout << "Alineamiento final:" << std::endl;
         std::cout << alignment << std::endl;
     }
 }
+
 
 /*
 Conseguir el orden del alineamiento
@@ -257,7 +254,7 @@ void NeighbourJoining::print_tree(Node* node, std::string prefix, bool is_left) 
 }
 
 /*
-Realizar el alineamiento final
+Realizar el alineamiento final, en proceso de realización...
 */
 std::string NeighbourJoining::align_sequences() {
     std::vector<Node*> order = get_alignment_order(nodes.back()); // Asumiendo que el último nodo es la raíz
@@ -273,6 +270,32 @@ std::string NeighbourJoining::align_sequences() {
     }
 
     return alignment;
+}
+
+/*
+Función para generar la representación Newick del árbol
+*/
+std::string NeighbourJoining::generate_newick_format(Node* node) {
+    if (node == nullptr) {
+        return "";
+    }
+
+    std::string result;
+    if (node->left_child || node->right_child) {
+        result += "(";
+        if (node->left_child) {
+            result += generate_newick_format(node->left_child);
+        }
+        if (node->right_child) {
+            result += ",";
+            result += generate_newick_format(node->right_child);
+        }
+        result += ")";
+    }
+    result += node->id;
+    // Usa la profundidad dividida por 10 como una estimación de la distancia
+    result += ":" + std::to_string(node->depth / 10.0);
+    return result;
 }
 
 

@@ -14,6 +14,7 @@ public:
         Node* left_child = nullptr;
         Node* right_child = nullptr;
         std::string sequence;
+        int depth = 0;
         bool active = true;
     };
 
@@ -36,6 +37,7 @@ private:
     std::unique_ptr<std::vector<std::vector<int>>> create_new_distance_matrix(int min_i, int min_j);
     void print_tree(Node* node, std::string prefix = "", bool is_left = false);
     std::string align_sequences();
+    std::string generate_newick_format(Node* node);
 };
 
 #endif 

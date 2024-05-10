@@ -55,20 +55,14 @@ int test_node_fusion() {
 int main() {
     // Secuencias de prueba en formato unordered_map
     std::unordered_map<std::string, std::string> sequences = {
-        {"SeqA", "ATGCGA"},
-        {"SeqB", "ATGGACGA"},
-        {"SeqC", "ATCCA"},
-        {"SeqD", "ATGGA"},
-        {"SeqZ", "TTTTT"}
+        {"SeqA", "AGCTGACGTAGCTGACGTAGCTGACGTAGCTGACGTA"},
+        {"SeqB", "AGCTGACGTAGCTGACGTAGCTGACGTAGCTGACGTA"},
+        {"SeqC", "TGCAGTACGTAGCTGACGTAGCTGACGTAGCTGACGT"},
+        {"SeqD", "ACGTAGCTGACGTAGCTGACGTAGCTGACGTAGCTG"},
+        {"SeqE", "GCTAGCTGACGTAGCTGACGTAGCTGACGTAGCTGA"}
     };
-
     // Crear objeto NeighbourJoining
     NeighbourJoining nj(sequences);
-
-    // Mostrar la matriz de distancias original
-    std::cout << "Matriz de distancias original:" << std::endl;
-    nj.print_distance_matrix();
-
     nj.build_tree();
     return 0;
 }
