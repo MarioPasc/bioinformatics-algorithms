@@ -58,7 +58,8 @@ int main() {
         {"SeqA", "ATGCGA"},
         {"SeqB", "ATGGACGA"},
         {"SeqC", "ATCCA"},
-        {"SeqD", "ATGGA"}
+        {"SeqD", "ATGGA"},
+        {"SeqZ", "TTTTT"}
     };
 
     // Crear objeto NeighbourJoining

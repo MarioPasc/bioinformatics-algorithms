@@ -24,15 +24,18 @@ public:
     void find_smallest_distance_node() const;
     void join_smallest_distance_nodes();
     void build_tree();
-    std::string get_alignment_order(NeighbourJoining::Node* node);
+    std::vector<Node*> get_alignment_order(Node* node);
 private:
     std::vector<std::string> sequences;
     std::unique_ptr<std::vector<std::vector<int>>> distance_matrix;
-    std::vector<Node*> nodes;  // Solo un vector de punteros
-
-    std::pair<int, int> find_smallest_distance_pair(int num_nodes);
-    NeighbourJoining::Node* create_new_node(int min_i, int min_j);
-    std::unique_ptr<std::vector<std::vector<int>>> create_new_distance_matrix(int num_nodes, int new_num_nodes, int min_i, int min_j);
+    std::vector<Node*> nodes;  
+    std::vector<Node*> active_nodes;
+    void update_active_nodes();
+    std::pair<int, int> find_smallest_distance_pair();
+    void create_new_node(int min_i, int min_j);
+    std::unique_ptr<std::vector<std::vector<int>>> create_new_distance_matrix(int min_i, int min_j);
+    void print_tree(Node* node, std::string prefix = "", bool is_left = false);
+    std::string align_sequences();
 };
 
 #endif 

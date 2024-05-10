@@ -73,8 +73,9 @@ void NeighbourJoining::find_smallest_distance_node() const {
 void NeighbourJoining::join_smallest_distance_nodes() {
     int num_nodes = distance_matrix->size();
     if (num_nodes <= 1) return;  // No hay suficientes nodos para proceder
+    update_active_nodes();
 
-    std::pair<int, int> smallest_distance_pair = find_smallest_distance_pair(num_nodes);
+    std::pair<int, int> smallest_distance_pair = find_smallest_distance_pair();
     int min_i = smallest_distance_pair.first;
     int min_j = smallest_distance_pair.second;
 
@@ -84,12 +85,13 @@ void NeighbourJoining::join_smallest_distance_nodes() {
     }
 
     // Crear un nuevo nodo y actualizar la matriz de distancias
-    Node* new_node = create_new_node(min_i, min_j);
-    nodes.push_back(new_node);  // Añadir el nuevo nodo a la lista
+    create_new_node(min_i, min_j);
+
+
     // Contar solo los nodos activos
     int new_num_nodes = std::count_if(nodes.begin(), nodes.end(), [](const Node* n) { return n->active; });
     // Crear una nueva matriz de distancias
-    auto new_distance_matrix = create_new_distance_matrix(num_nodes, new_num_nodes, min_i, min_j);
+    auto new_distance_matrix = create_new_distance_matrix(min_i, min_j);
     distance_matrix = std::move(new_distance_matrix);
 
     // Imprimir el estado de los nodos después de la fusión
@@ -102,91 +104,96 @@ void NeighbourJoining::join_smallest_distance_nodes() {
     }
 }
 
+void NeighbourJoining::update_active_nodes() {
+    active_nodes.clear();  // Limpiar la lista anterior de nodos activos
+    for (Node* node : nodes) {
+        if (node->active) {
+            active_nodes.push_back(node);  // Añadir solo nodos activos a la lista
+        }
+    }
 
-std::pair<int, int> NeighbourJoining::find_smallest_distance_pair(int num_nodes) {
+    for (Node* node: active_nodes) {
+        std::cout << "Active Node: " << node->id << std::endl;
+    }
+}
+
+std::pair<int, int> NeighbourJoining::find_smallest_distance_pair() {
     int min_i = -1;
     int min_j = -1;
-    int min_distance = 1000000;
-
-    // El problema es que si añadimos nodos, num_nodes aumenta, por lo que realmente tendríamos que comprobar
-    // con toda la lista de nodos.
-    // El problema es que al usar nodes.size() estamos accediendo a zonas fuera de la matriz, ya que existe la 
-    // posición 4 en el vector de nodos, pero la matriz es 3x3
-
-    for (int i = 0; i < nodes.size(); ++i) {
-        if (!nodes[i]->active) continue;  // Saltar nodos inactivos
-
-        for (int j = i + 1; j < nodes.size(); ++j) {
-            if (!nodes[j]->active) continue;  // Saltar nodos inactivos
-
-            int distance = (*distance_matrix)[i][j];
-            if (distance < min_distance) {
-                min_distance = distance;
-                min_i = i;
-                min_j = j;
+    int min_distance = std::numeric_limits<int>::max();
+    
+    for (int i = 0; i < active_nodes.size(); ++i) {
+        for (int j = i + 1; j < active_nodes.size(); ++j) {
+            if (active_nodes[i] && active_nodes[j]) { // Verificar que los punteros son válidos
+                int distance = (*distance_matrix)[i][j];
+                if (distance < min_distance) {
+                    min_distance = distance;
+                    min_i = i;
+                    min_j = j;
+                }
             }
         }
     }
+
     if (min_i == -1 || min_j == -1) {
-        // No se encontraron pares válidos para fusionar
+        std::cout << "No valid pairs found to merge." << std::endl;
         return std::make_pair(-1, -1);
     }
 
+    std::cout << "Smallest Distance Pair: (" << active_nodes[min_i]->id << ", " << active_nodes[min_j]->id << ") with distance " << min_distance << std::endl;
     std::cout << "Smallest Distance Pair: (" << min_i << ", " << min_j << ") with distance " << min_distance << std::endl;
     return std::make_pair(min_i, min_j);
 }
 
 
-NeighbourJoining::Node* NeighbourJoining::create_new_node(int min_i, int min_j) {
+
+void NeighbourJoining::create_new_node(int min_i, int min_j) {
+    // Hay que usar la lista de nodos activos para la creación del nuevo. 
     Node* new_node = new Node();
-    new_node->id = nodes[min_i]->id + "-" + nodes[min_j]->id;
-    new_node->left_child = nodes[min_i];
-    new_node->right_child = nodes[min_j];
+    new_node->id = active_nodes[min_i]->id + "-" + active_nodes[min_j]->id;
+    new_node->left_child = active_nodes[min_i];
+    new_node->right_child = active_nodes[min_j];
     new_node->sequence = "";
     new_node->active = true;
 
     // Desactivar los nodos antiguos
-    nodes[min_i]->active = false;
-    nodes[min_j]->active = false;
-
-    return new_node;
+    new_node->left_child->active = false;
+    new_node->right_child->active = false;
+    std::cout << "New node ID: " << new_node->id << std::endl;
+    nodes.push_back(new_node);  // Añadir el nuevo nodo a la lista
+    update_active_nodes(); // Ahora que hemos creado el nuevo nodo, actualizamos la lista.
 }
 
-// Asegurando el cálculo correcto de las nuevas distancias
-std::unique_ptr<std::vector<std::vector<int>>> NeighbourJoining::create_new_distance_matrix(int num_nodes, int new_num_nodes, int min_i, int min_j) {
+std::unique_ptr<std::vector<std::vector<int>>> NeighbourJoining::create_new_distance_matrix(int min_i, int min_j) {
+    int new_num_nodes = active_nodes.size();
     auto new_distance_matrix = std::make_unique<std::vector<std::vector<int>>>(new_num_nodes, std::vector<int>(new_num_nodes, 0));
-    std::vector<int> active_indices;
-
-    // Recolectar todos los índices activos, excepto los dos que se van a fusionar
-    for (int i = 0; i < num_nodes; ++i) {
-        if (nodes[i]->active && i != min_i && i != min_j) {
-            active_indices.push_back(i);
-        }
-    }
-
-    // Añadir el índice del nuevo nodo al final para representarlo como último elemento en la matriz
-    active_indices.push_back(num_nodes);  // Nuevo nodo es el último en la lista de nodos
 
     // Rellenar la nueva matriz de distancias
-    for (int i = 0; i < new_num_nodes; ++i) {
-        for (int j = 0; j < new_num_nodes; ++j) {
-            if (i == new_num_nodes - 1 || j == new_num_nodes - 1) {
-                // Calculando las distancias para el nuevo nodo fusionado
-                if (i < new_num_nodes - 1 || j < new_num_nodes - 1) {
-                    int other_index = active_indices[(i == new_num_nodes - 1) ? j : i];
-                    (*new_distance_matrix)[i][j] = ((*distance_matrix)[other_index][min_i] + (*distance_matrix)[other_index][min_j] - (*distance_matrix)[min_i][min_j]) / 2;
-                    (*new_distance_matrix)[j][i] = (*new_distance_matrix)[i][j];  // Asegurar simetría
-                }
-            } else {
-                // Copiar las distancias existentes entre otros nodos activos
-                (*new_distance_matrix)[i][j] = (*distance_matrix)[active_indices[i]][active_indices[j]];
+    for (int i = 0; i < new_num_nodes - 1; ++i) {  // -1 porque el último nodo será el nuevo nodo fusionado
+        for (int j = 0; j < new_num_nodes - 1; ++j) {
+            if (i == min_i || i == min_j || j == min_i || j == min_j) {
+                // No calcular distancias que involucren directamente a los nodos fusionados aquí
+                continue;
             }
+            // Copiar las distancias existentes entre otros nodos activos
+            (*new_distance_matrix)[i][j] = (*distance_matrix)[i][j];
         }
     }
+
+    // Calcular las distancias del nuevo nodo fusionado
+    int new_node_index = new_num_nodes - 1;
+    for (int i = 0; i < new_num_nodes - 1; ++i) {
+        // Utilizando la fórmula de Neighbour Joining para calcular la distancia al nuevo nodo
+        (*new_distance_matrix)[i][new_node_index] = ((*distance_matrix)[i][min_i] + (*distance_matrix)[i][min_j] - (*distance_matrix)[min_i][min_j]) / 2;
+        (*new_distance_matrix)[new_node_index][i] = (*new_distance_matrix)[i][new_node_index];  // Mantener la simetría
+    }
+
     return new_distance_matrix;
 }
 
-// Verificar la condición de parada en el método build_tree
+/*
+Esta es la función principal, que va creando el árbol
+*/
 void NeighbourJoining::build_tree() {
     calculate_distance_matrix();
     std::cout << "Matriz de distancias inicial en build_tree:" << std::endl;
@@ -195,36 +202,79 @@ void NeighbourJoining::build_tree() {
     while (distance_matrix->size() > 1) {
         join_smallest_distance_nodes();
         std::cout << "Matriz de distancias después de una fusión:" << std::endl;
-        for (int i = 0; i < nodes.size(); ++i) {
-            if (nodes[i]->active) {
-                std::cout << "Node Active: " << nodes[i]->id << std::endl;
-            } else {
-                std::cout << "Node Inactive: " << nodes[i]->id << std::endl;
-            }
-        }
         print_distance_matrix();
     }
 
     std::cout << "Construcción del árbol completada." << std::endl;
     if (!nodes.empty()) {
-        Node* root = nodes.back();  // Asumiendo que el último nodo es la raíz
-        std::string alignment_order = get_alignment_order(root);
-        std::cout << "Orden de alineamiento: " << alignment_order << std::endl;
+        Node* root = nodes.back(); // Asumiendo que el último nodo es la raíz
+        std::cout << "Árbol filogenético:" << std::endl;
+        
+        std::vector<Node*> order = get_alignment_order(root);
+        for (Node* node : order) {
+            std::cout << "Order: " << node->id << "->" << std::endl;
+        }
+
+        std::string alignment = align_sequences();
+        std::cout << "Alineamiento final:" << std::endl;
+        std::cout << alignment << std::endl;
     }
 }
 
-std::string NeighbourJoining::get_alignment_order(Node* node) {
+/*
+Conseguir el orden del alineamiento
+*/
+std::vector<NeighbourJoining::Node*> NeighbourJoining::get_alignment_order(Node* node) {
     if (node == nullptr) {
-        return "";
+        return {};
     }
-    std::string left_order = get_alignment_order(node->left_child);
-    std::string right_order = get_alignment_order(node->right_child);
+
+    std::vector<Node*> left_order = get_alignment_order(node->left_child);
+    std::vector<Node*> right_order = get_alignment_order(node->right_child);
 
     if (node->left_child == nullptr && node->right_child == nullptr) {
-        return node->id;
+        return {node};
     }
 
-    return left_order + (left_order.empty() ? "" : "->") + right_order;
+    left_order.insert(left_order.end(), right_order.begin(), right_order.end());
+    return left_order;
 }
+
+/*
+Imprimir el árbol
+*/
+void NeighbourJoining::print_tree(Node* node, std::string prefix, bool is_left) {
+    if (node == nullptr) {
+        return;
+    }
+
+    std::cout << prefix;
+    std::cout << (is_left? "├──" : "└──");
+    std::cout << node->id << std::endl;
+
+    print_tree(node->left_child, prefix + (is_left? "│   " : "    "), true);
+    print_tree(node->right_child, prefix + (is_left? "│   " : "    "), false);
+}
+
+/*
+Realizar el alineamiento final
+*/
+std::string NeighbourJoining::align_sequences() {
+    std::vector<Node*> order = get_alignment_order(nodes.back()); // Asumiendo que el último nodo es la raíz
+    std::string alignment = order[0]->sequence; // Inicia el alineamiento con la secuencia del primer nodo
+
+    for (size_t i = 1; i < order.size(); ++i) {
+        std::string next_sequence = order[i]->sequence;
+        NeedlemanWunsch nw(alignment, next_sequence, 3, -1, -2); // Ajusta los parámetros según sea necesario
+        nw.align();
+        auto aligned_sequences = nw.get_alignment();
+        alignment = aligned_sequences.first; // Usa la secuencia alineada de 'alignment' como la nueva secuencia base
+        std::cout << alignment << std::endl;
+    }
+
+    return alignment;
+}
+
+
 
 
