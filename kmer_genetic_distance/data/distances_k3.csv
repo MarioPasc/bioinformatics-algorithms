@@ -1,0 +1,19 @@
+Org_1,Org_2,Measure,Value
+E_coli,S_flexneri,Euclidean Distance,0.002186045290445226
+E_coli,S_flexneri,Manhattan Distance,0.014298795582319359
+E_coli,S_flexneri,Pearson Correlation,0.9982048671828094
+E_coli,S_enterica,Euclidean Distance,0.012829959443758934
+E_coli,S_enterica,Manhattan Distance,0.07631319119022315
+E_coli,S_enterica,Pearson Correlation,0.9428999310230868
+E_coli,B_subtilis,Euclidean Distance,0.04179041128677758
+E_coli,B_subtilis,Manhattan Distance,0.27057862495696117
+E_coli,B_subtilis,Pearson Correlation,0.5385992095039643
+S_flexneri,S_enterica,Euclidean Distance,0.013600112645375684
+S_flexneri,S_enterica,Manhattan Distance,0.07862605831212764
+S_flexneri,S_enterica,Pearson Correlation,0.9363801548089703
+S_flexneri,B_subtilis,Euclidean Distance,0.041857148855369286
+S_flexneri,B_subtilis,Manhattan Distance,0.27112759382187523
+S_flexneri,B_subtilis,Pearson Correlation,0.5330109763464435
+S_enterica,B_subtilis,Euclidean Distance,0.048170751986804046
+S_enterica,B_subtilis,Manhattan Distance,0.29043688293406433
+S_enterica,B_subtilis,Pearson Correlation,0.4054424572475147

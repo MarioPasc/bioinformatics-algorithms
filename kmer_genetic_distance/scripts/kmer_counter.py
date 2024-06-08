@@ -1,153 +1,121 @@
-from Bio import AlignIO
+from Bio import SeqIO
 from collections import Counter
-import pandas as pd
-import numpy as np
+from typing import List, Dict, Tuple
 import matplotlib.pyplot as plt
-import seaborn as sns
-from tqdm import tqdm
+import csv
 from scipy.spatial.distance import euclidean, cityblock
 from scipy.stats import pearsonr
-from scipy.cluster.hierarchy import linkage, dendrogram
-from sklearn.decomposition import PCA
-from sklearn.manifold import MDS
 import os
-from typing import Dict
 
+class KmerAnalyzer:
+    def __init__(self, k_values: List[int], file_paths: Dict[str, str], output_dir: str) -> None:
+        self.k_values = k_values
+        self.file_paths = file_paths
+        self.output_dir = output_dir
+        os.makedirs(output_dir, exist_ok=True)
 
-class KmerAnalysis:
-    def __init__(self, aligned_file: str) -> None:
-        self.alignment = AlignIO.read(aligned_file, "fasta")
-        self.genome1 = str(self.alignment[0].seq)
-        self.genome2 = str(self.alignment[1].seq)
+    def read_fasta(self, file: str) -> List[str]:
+        sequences = []
+        for record in SeqIO.parse(file, "fasta"):
+            sequences.append(str(record.seq))
+        return sequences
 
-    def kmer_frequencies(self, sequence: str, k: int) -> Counter:
-        kmer_counts = Counter([sequence[i:i+k] for i in range(len(sequence) - k + 1)])
-        return kmer_counts
+    def count_kmers(self, sequence: str, k: int) -> Counter:
+        return Counter([sequence[i:i+k] for i in range(len(sequence) - k + 1)])
 
-    def normalize_frequencies(self, kmer_freqs: Counter, sequence_length: int, k: int) -> Dict[str, float]:
-        normalization_factor = sequence_length - k + 1
-        normalized_freqs = {kmer: freq / normalization_factor for kmer, freq in kmer_freqs.items()}
-        return normalized_freqs
+    def normalize_frequencies(self, kmer_counts: Counter, sequence_length: int, k: int) -> Dict[str, float]:
+        norm_factor = sequence_length - k + 1
+        return {k: v / norm_factor for k, v in kmer_counts.items() if v / norm_factor >= 10e-5}
 
-    def calculate_kmer_frequencies(self, k: int) -> pd.DataFrame:
-        freqs1 = self.kmer_frequencies(self.genome1, k)
-        freqs2 = self.kmer_frequencies(self.genome2, k)
-        
-        norm_freqs1 = self.normalize_frequencies(freqs1, len(self.genome1), k)
-        norm_freqs2 = self.normalize_frequencies(freqs2, len(self.genome2), k)
-        
-        all_kmers = set(freqs1.keys()).union(set(freqs2.keys()))
-        
-        data = []
-        for kmer in tqdm(all_kmers, desc="Calculating k-mer frequencies"):
-            data.append({
-                "Kmer": kmer,
-                "Frequency": freqs1.get(kmer, 0),
-                "Normalized Frequency": norm_freqs1.get(kmer, 0),
-                "Organism": "Helicobacter pylori"
-            })
-            data.append({
-                "Kmer": kmer,
-                "Frequency": freqs2.get(kmer, 0),
-                "Normalized Frequency": norm_freqs2.get(kmer, 0),
-                "Organism": "Neisseria gonorrhoeae"
-            })
-        
-        df = pd.DataFrame(data)
-        return df
+    def plot_kmer_frequencies(self, kmer_frequencies: Dict[str, float], title: str, filename: str) -> None:
+        k_mers = list(kmer_frequencies.keys())
+        frequencies = list(kmer_frequencies.values())
+        plt.figure(figsize=(10, 5))
+        plt.bar(k_mers, frequencies, color='blue')
+        plt.xlabel('k-mers')
+        plt.ylabel('Frequency')
+        plt.title(title)
+        plt.xticks(rotation=90)
+        plt.savefig(filename)
+        plt.close()
 
-    def save_frequencies_to_csv(self, df: pd.DataFrame, filename: str) -> None:
-        df.to_csv(filename, index=False)
+    def calculate_distances(self, freq1: Dict[str, float], freq2: Dict[str, float]) -> Tuple[float, float, float]:
+        kmers = set(freq1.keys()).union(set(freq2.keys()))
+        vec1 = [freq1.get(k, 0) for k in kmers]
+        vec2 = [freq2.get(k, 0) for k in kmers]
+        euclid_dist = euclidean(vec1, vec2)
+        manhattan_dist = cityblock(vec1, vec2)
+        correlation, _ = pearsonr(vec1, vec2)
+        return euclid_dist, manhattan_dist, correlation
 
-    def plot_heatmap(self, df: pd.DataFrame) -> None:
-        pivot_df = df.pivot(index='Kmer', columns='Organism', values='Normalized Frequency')
-        plt.figure(figsize=(10, 8))
-        sns.heatmap(pivot_df, cmap='viridis')
-        plt.title('Heatmap of k-mer Frequencies')
-        plt.show()
+    def save_kmer_frequencies(self, results: Dict[int, Dict[str, Dict[str, float]]]) -> None:
+        for k, k_results in results.items():
+            all_kmers = set()
+            for freqs in k_results.values():
+                all_kmers.update(freqs.keys())
 
-    def plot_dendrogram(self, df: pd.DataFrame) -> None:
-        pivot_df = df.pivot(index='Kmer', columns='Organism', values='Normalized Frequency').fillna(0)
-        linked = linkage(pivot_df.T, 'ward')
-        
-        plt.figure(figsize=(10, 8))
-        dendrogram(linked, labels=pivot_df.columns, leaf_rotation=90)
-        plt.title('Dendrogram of k-mer Clustering')
-        plt.show()
+            with open(os.path.join(self.output_dir, f"norm_kmer_freq_k{k}.csv"), 'w', newline='') as csvfile:
+                writer = csv.writer(csvfile)
+                header = ["k", "kmer"] + list(k_results.keys())
+                writer.writerow(header)
+                for kmer in all_kmers:
+                    row = [k, kmer] + [k_results[org].get(kmer, 0) for org in k_results]
+                    writer.writerow(row)
 
-    def plot_pca(self, df: pd.DataFrame) -> None:
-        pivot_df = df.pivot(index='Kmer', columns='Organism', values='Normalized Frequency').fillna(0)
-        
-        pca = PCA(n_components=2)
-        pca_result = pca.fit_transform(pivot_df.T)
-        
-        plt.figure(figsize=(10, 8))
-        plt.scatter(pca_result[:, 0], pca_result[:, 1])
-        for i, organism in enumerate(pivot_df.columns):
-            plt.text(pca_result[i, 0], pca_result[i, 1], organism)
-        plt.title('PCA of k-mer Frequencies')
-        plt.xlabel('PCA Component 1')
-        plt.ylabel('PCA Component 2')
-        plt.show()
+    def save_distances(self, distances: Dict[int, Dict[str, Dict[str, float]]]) -> None:
+        for k, k_distances in distances.items():
+            with open(os.path.join(self.output_dir, f"distances_k{k}.csv"), 'w', newline='') as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerow(["Org_1", "Org_2", "Measure", "Value"])
+                for pair, measures in k_distances.items():
+                    org1, org2 = pair.split("_vs_")
+                    for measure, value in measures.items():
+                        writer.writerow([org1, org2, measure, value])
 
-    def plot_mds(self, df: pd.DataFrame) -> None:
-        pivot_df = df.pivot(index='Kmer', columns='Organism', values='Normalized Frequency').fillna(0)
-        
-        mds = MDS(n_components=2, dissimilarity='precomputed')
-        dist_matrix = np.zeros((pivot_df.shape[1], pivot_df.shape[1]))
-        for i in range(pivot_df.shape[1]):
-            for j in range(pivot_df.shape[1]):
-                dist_matrix[i, j] = euclidean(pivot_df.iloc[:, i], pivot_df.iloc[:, j])
-        mds_result = mds.fit_transform(dist_matrix)
-        
-        plt.figure(figsize=(10, 8))
-        plt.scatter(mds_result[:, 0], mds_result[:, 1])
-        for i, organism in enumerate(pivot_df.columns):
-            plt.text(mds_result[i, 0], mds_result[i, 1], organism)
-        plt.title('MDS of k-mer Frequencies')
-        plt.xlabel('MDS Dimension 1')
-        plt.ylabel('MDS Dimension 2')
-        plt.show()
+    def run_analysis(self) -> None:
+        results = {k: {} for k in self.k_values}
+        distances = {k: {} for k in self.k_values}
+        for name, file in self.file_paths.items():
+            sequences = self.read_fasta(file)
+            sequence = sequences[0]
+            sequence_length = len(sequence)
+            for k in self.k_values:
+                kmer_counts = self.count_kmers(sequence, k)
+                normalized_kmers = self.normalize_frequencies(kmer_counts, sequence_length, k)
+                results[k][name] = normalized_kmers
+                plot_filename = os.path.join(self.output_dir, f"{name}_kmers_k{k}.png")
+                self.plot_kmer_frequencies(normalized_kmers, f"k-mer Frequencies for {name} (k={k})", plot_filename)
 
-    def calculate_distances(self, df: pd.DataFrame) -> pd.DataFrame:
-        pivot_df = df.pivot(index='Kmer', columns='Organism', values='Normalized Frequency').fillna(0)
-        manhattan_distance = cityblock(pivot_df.iloc[:, 0], pivot_df.iloc[:, 1])
-        euclidean_distance = euclidean(pivot_df.iloc[:, 0], pivot_df.iloc[:, 1])
-        correlation, _ = pearsonr(pivot_df.iloc[:, 0], pivot_df.iloc[:, 1])
-        
-        return pd.DataFrame({
-            'Distance': ['Manhattan', 'Euclidean', 'Correlation'],
-            'Value': [manhattan_distance, euclidean_distance, correlation]
-        })
+        # Save k-mer frequencies to separate CSV files for each k
+        self.save_kmer_frequencies(results)
 
-    def save_distances_to_csv(self, df: pd.DataFrame, filename: str) -> None:
-        df.to_csv(filename, index=False)
+        # Calculate and save distances between the organisms for each k
+        for k in self.k_values:
+            keys = list(results[k].keys())
+            for i in range(len(keys)):
+                for j in range(i+1, len(keys)):
+                    org1, org2 = keys[i], keys[j]
+                    euclid_dist, manhattan_dist, correlation = self.calculate_distances(results[k][org1], results[k][org2])
+                    distances[k][f"{org1}_vs_{org2}"] = {
+                        "Euclidean Distance": euclid_dist,
+                        "Manhattan Distance": manhattan_dist,
+                        "Pearson Correlation": correlation
+                    }
+            self.save_distances(distances)
 
+def main() -> None:
+    k_values = [2, 3, 4]  # List of k values
+    base_path = "/home/mariopasc/C++/genomes_used"
+    file_paths = {
+        "E_coli": os.path.join(base_path, "Escherichia_Coli", "GCF_000005845.2_ASM584v2_genomic.fna"),
+        "S_flexneri": os.path.join(base_path, "Shigella_flexneri", "GCF_000006925.2_ASM692v2_genomic.fna"),
+        "S_enterica": os.path.join(base_path, "Salmonella_Enterica", "GCF_000006945.2_ASM694v2_genomic.fna"),
+        "B_subtilis": os.path.join(base_path, "Bacillus_subtilis", "GCF_000009045.1_ASM904v1_genomic.fna")
+    }
+    output_dir = "./kmer_genetic_distance/data"
 
-def main() -> int:
-    # Uso de la clase
-    aligned_file = "/home/mariopasc/C++/genomes_used/Alignment/aligned_genomes.fasta"
-    analysis = KmerAnalysis(aligned_file)
-
-    # Calcular frecuencias de k-mers para diferentes valores de k
-    k_values = [2]
-    for k in k_values:
-        df = analysis.calculate_kmer_frequencies(k)
-        analysis.save_frequencies_to_csv(df, f"./kmer_genetic_distance/data/kmer_frequencies_k{k}.csv")
-        
-        # Generar visualizaciones
-        analysis.plot_heatmap(df)
-        analysis.plot_dendrogram(df)
-        analysis.plot_pca(df)
-        analysis.plot_mds(df)
-
-    # Calcular y guardar distancias para k=2
-    df_k2 = analysis.calculate_kmer_frequencies(2)
-    distances_df = analysis.calculate_distances(df_k2)
-    analysis.save_distances_to_csv(distances_df, "./kmer_genetic_distance/data/distances_k2.csv")
-
-    return 0
+    analyzer = KmerAnalyzer(k_values, file_paths, output_dir)
+    analyzer.run_analysis()
 
 if __name__ == "__main__":
-    import sys
-    sys.exit(main())
+    main()
