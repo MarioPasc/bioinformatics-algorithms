@@ -83,6 +83,8 @@ class GeneticDistanceVisualizer:
         plt.ylabel('Frequency')
         plt.title(f'K-mer Frequencies for Each Species (k={self.k})')
         plt.xticks(rotation=90, fontsize=8)  # Rotate x-axis labels 90 degrees and set font size to 8
+        if (self.k==4):
+            plt.xticks(rotation=90, fontsize=2)
         plt.legend()
         kmer_freq_path = os.path.join(self.output_dir, 'kmer_frequencies.png')
         plt.savefig(kmer_freq_path)
